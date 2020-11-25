@@ -208,9 +208,7 @@ twitter や Instagram などとは違い、
 
 ## ER図
 
-[ER図_鈴木祐太.xlsx(Google Drive)](https://drive.google.com/file/d/1332ZlsoFDOFHHtceUYzvGcuG6PL10y-i/view?usp=sharing)
-
-<img width="950" alt="ER図" src="https://github.com/UtaSuzuki/techBoost/blob/master/ER図_鈴木祐太.png">
+<img width="950" alt="ER図" src="https://github.com/UtaSuzuki/astrogram/blob/master/Outline/ERchart.png">
 
 
 ---
