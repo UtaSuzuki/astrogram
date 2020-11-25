@@ -208,7 +208,7 @@ twitter や Instagram などとは違い、
 
 ## ER図
 
-<img width="950" alt="ER図" src="https://github.com/UtaSuzuki/astrogram/blob/master/Outline/ERchart.png">
+<img width="950" alt="ER図" src="https://github.com/UtaSuzuki/astrogram/blob/dev/outline/ERchart.png">
 
 
 ---
