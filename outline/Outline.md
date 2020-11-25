@@ -44,7 +44,7 @@
 
 ## リーンキャンバス
 [リーンキャンバス_鈴木祐太.xlsx(Google Drive)](https://drive.google.com/file/d/1WXMwcDj-ha07WScNbm5NavM2SKYjuD8_/view?usp=sharing)
-<img width="950" alt="リーンキャンバス" src="https://github.com/UtaSuzuki/astrogram/blob/master/Outline/LeanCanvas.png">
+<img width="950" alt="リーンキャンバス" src="https://github.com/UtaSuzuki/astrogram/blob/dev/outline/LeanCanvas.png">
 
 ---
 
