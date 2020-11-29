@@ -5,11 +5,60 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
   </head>
 
   <body>
+    <!-- アラート表示 -->
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+    <% end %>
+    
+    <nav class="navbar navbar-default navbar-fixed-top navbar-transparent">
+      <div class="container">
+        <%= link_to root_path do %>
+          <span><%= image_tag "icons/logo.png", class: "navbar-brand" %></span>
+        <% end %>
+        <ul class="nav navbar-nav navbar-right">
+          <% if logged_in? %>
+            <li>
+              <%= link_to "#" do %>
+                <%= image_tag "icons/heart.png" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "#" do %>
+                <%= image_tag "icons/camera.png" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to logout_path %>
+                <%= image_tag "icons/logout.png" %>
+              <% end %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to new_user_path do %>
+                <%= image_tag "icons/register.png" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to login_path do %>
+                <%= image_tag "icons/login.png" %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    
     <%= yield %>
+    <!-- 動的にアラートを表示(1.000秒かけてフェードアウト -->
+    <script>
+      $(function(){
+        $(".alert").fadeOut(1000);
+      });
+    </script>
   </body>
 </html>
