@@ -5,7 +5,7 @@ class CreateCards < ActiveRecord::Migration[5.2]
       t.integer :card_number
       t.integer :expiration_year
       t.integer :expiration_month
-      t.integer :securityCode
+      t.integer :security_code
       
       t.timestamps
     end
