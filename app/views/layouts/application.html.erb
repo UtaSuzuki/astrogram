@@ -38,7 +38,7 @@
             </li>
             <!-- ログアウト -->
             <li>
-              <%= link_to logout_path do %>
+              <%= link_to logout_path, method: :delete do %>
                 <%= image_tag "icons/logout.png" %>
               <% end %>
             </li>
@@ -64,7 +64,7 @@
     <!-- 動的アラート表示(1.000秒間でフェードアウト) -->
     <script>
       $(function(){
-        $(".alert").fadeOut(1000);
+        $(".alert").fadeOut(3000);
       });
     </script>
   </body>

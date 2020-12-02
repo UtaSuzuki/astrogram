@@ -25,6 +25,20 @@
             <%= f.label :password_confirmation, class: "text-white" %>
             <%= f.password_field :password_confirmation, class: "form-control" %>
           </div>
+          <!-- ユーザ種別選択 -->
+          <div class="form-group">
+            <%= f.label :kind, "User Type", class: "text-white" %>
+            <!-- <div class="row col-md-6 btn-group" data-toggle="buttons"> -->
+              <label class="btn btn-outline-secondary active" style="width:30%">
+                <%= f.radio_button :kind, "normal", checked: true %>
+                <%= f.label :kind, "Normal", {value: "nomal", style: "desplay: inline-block; color: #fff;"} %>
+              </label>
+              <label class="btn btn-outline-secondary active" style="width:30%">
+                <%= f.radio_button :kind, "creater" %>
+                <%= f.label :kind, "Creater", {value: "creater", style: "desplay: inline-block; color: #fff;"} %>
+              </label>
+            <!--</div> -->
+          </div>
           <!-- 登録ボタン -->
           <%= f.submit "Create", class: "btn-block btn-white" %>
         <% end %>
