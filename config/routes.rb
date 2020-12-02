@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'events/new'
   root 'pages#index'
   
   get  'sessions/new'
@@ -9,4 +10,5 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   
   resources :users
+  resources :events
 end
