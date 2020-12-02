@@ -5,15 +5,5 @@ class User < ApplicationRecord
   validates :kind, inclusion: {in: %w(normal creater)}
   
   has_secure_password
-
-  has_many :photos, dependent: :destroy
-  has_many :events, dependent: :destroy
-  
-  
-  
-  has_many :favorites, dependent: :destroy
-  has_many :favorite_topics, through: :favorites, source: 'topic'
-  has_many :comments
-  has_many :comment_topics, through: :comments, source: 'topic'
   
 end
