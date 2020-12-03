@@ -1,10 +1,10 @@
 class Event < ApplicationRecord
   validates :user_id, presence: true
-  validates :title, presence: true, format: {with: /\A[\w\!\?]+\z/}
+  validates :title, presence: true
   validates :date, presence: true
   validates :start_time, presence: true
-  validates :location, presence: true, format: {with: /\A[\w\-\.]+\z/}
-  validates :description, presence: true, format: {with: /\A[\w\-\.\!\?]+\z/}
+  validates :location, presence: true
+  validates :description, presence: true
   
   belongs_to :user
   

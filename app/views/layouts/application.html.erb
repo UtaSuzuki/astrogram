@@ -19,8 +19,14 @@
     <nav class="navbar navbar-default navbar-fixed-top navbar-transparent">
       <div class="container">
         <!-- ロゴ -->
-        <%= link_to root_path do %>
-          <span><%= image_tag "icons/logo.png", class: "navbar-brand" %></span>
+        <% if !logged_in? %>
+          <%= link_to root_path do %>
+            <span><%= image_tag "icons/logo.png", class: "navbar-brand" %></span>
+          <% end %>
+        <% else %>
+          <%= link_to events_path do %>
+            <span><%= image_tag "icons/logo.png", class: "navbar-brand" %></span>
+          <% end %>
         <% end %>
         <ul class="nav navbar-nav navbar-right">
           <% if logged_in? %>
@@ -30,12 +36,14 @@
                 <%= image_tag "icons/heart.png" %>
               <% end %>
             </li>
-            <!-- 投稿一覧 -->
-            <li>
-              <%= link_to new_event_path do %>
-                <%= image_tag "icons/camera.png" %>
-              <% end %>
-            </li>
+            <!-- イベント投稿 -->
+            <% if create_user? %>
+              <li>
+                <%= link_to new_event_path do %>
+                  <%= image_tag "icons/camera.png" %>
+                <% end %>
+              </li>
+            <% end %>
             <!-- ログアウト -->
             <li>
               <%= link_to logout_path, method: :delete do %>
