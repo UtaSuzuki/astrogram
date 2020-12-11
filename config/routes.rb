@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'events/new'
   root 'pages#index'
   
   get  'sessions/new'
@@ -11,4 +10,5 @@ Rails.application.routes.draw do
   
   resources :users
   resources :events
+  resources :conditions
 end

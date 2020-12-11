@@ -1,0 +1,44 @@
+<div class="condition-index-wrapper">
+  <div class="container">
+    <!-- トップメッセージ -->
+    <h1 class="text-black text-center">撮影条件</h1>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <!-- 新規登録ページ -->
+        <%= link_to "新規登録", new_condition_path, class: 'btn btn-black btn-block' %>
+      </div>
+    </div>
+    <% @conditions.each do |condition| %>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="condition-index-single">
+            <h2 class="condition-title">
+              <%= condition.title %>
+            </h2>
+            <p class="condition-text">
+              <%= condition.camera %>
+            </p>
+            <p class="condition-text">
+              <%= condition.lens %>
+            </p>
+            <p class="condition-text">
+              <%= condition.telescope %>
+            </p>
+            <p class="condition-text">
+              <%= condition.filter %>
+            </p>
+            <p class="condition-text">
+              <%= condition.mount %>
+            </p>
+            <p class="condition-text">
+              <%= condition.tripod %>
+            </p>
+            <p class="condition-text">
+              <%= condition.description %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

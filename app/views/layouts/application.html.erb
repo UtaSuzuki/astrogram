@@ -51,7 +51,7 @@
               </li>
             <!-- イベント一覧 -->
             <li>
-              <%= link_to "#" do %>
+              <%= link_to events_path do %>
                 <%= image_tag "icons/event.png" %>
               <% end %>
             </li>
@@ -64,11 +64,11 @@
                 <% end %>
               </li>
             <% end %>
-            <!-- アカウント管理 -->
+            <!-- 撮影情報ページ -->
             <% if create_user? %>
               <li>
-                <%= link_to "#" do %>
-                  <%= image_tag "icons/account.png" %>
+                <%= link_to conditions_path do %>
+                  <%= image_tag "icons/condition.png" %>
                 <% end %>
               </li>
             <% end %>
