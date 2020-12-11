@@ -1,5 +1,16 @@
 <div class="event-index-wrapper">
   <div class="container">
+    <!-- トップタイトル -->
+    <h1 class="text-black text-center">イベント</h1>
+    <!-- 新規投稿ページへのボタン -->
+    <% if create_user? %>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <%= link_to "投稿", new_event_path, class: 'btn btn-black btn-block' %>
+        </div>
+      </div>
+    <% end %>
+    <!-- イベント一覧 -->
     <% @events.each do |event| %>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">

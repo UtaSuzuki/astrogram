@@ -42,28 +42,12 @@
                 <%= image_tag "icons/photo.png" %>
               <% end %>
             </li>
-            <!-- 写真投稿 --->
-            <% if create_user? %>
-              <li>
-                <%= link_to "#" do %>
-                  <%= image_tag "icons/photo_new.png" %>
-                <% end %>
-              </li>
             <!-- イベント一覧 -->
             <li>
               <%= link_to events_path do %>
                 <%= image_tag "icons/event.png" %>
               <% end %>
             </li>
-            <% end %>
-            <!-- イベント投稿 -->
-            <% if create_user? %>
-              <li>
-                <%= link_to new_event_path do %>
-                  <%= image_tag "icons/event_new.png" %>
-                <% end %>
-              </li>
-            <% end %>
             <!-- 撮影情報ページ -->
             <% if create_user? %>
               <li>

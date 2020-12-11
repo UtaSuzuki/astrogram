@@ -1,13 +1,14 @@
 <div class="condition-index-wrapper">
   <div class="container">
-    <!-- トップメッセージ -->
+    <!-- トップタイトル -->
     <h1 class="text-black text-center">撮影条件</h1>
+    <!-- 新規登録ページへのボタン -->
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <!-- 新規登録ページ -->
         <%= link_to "新規登録", new_condition_path, class: 'btn btn-black btn-block' %>
       </div>
     </div>
+    <!-- 登録済み撮影条件一覧 -->
     <% @conditions.each do |condition| %>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
