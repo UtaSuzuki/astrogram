@@ -16,24 +16,32 @@
             <h2 class="condition-title">
               <%= condition.title %>
             </h2>
-            <p class="condition-text">
-              <%= condition.camera %>
-            </p>
-            <p class="condition-text">
-              <%= condition.lens %>
-            </p>
-            <p class="condition-text">
-              <%= condition.telescope %>
-            </p>
-            <p class="condition-text">
-              <%= condition.filter %>
-            </p>
-            <p class="condition-text">
-              <%= condition.mount %>
-            </p>
-            <p class="condition-text">
-              <%= condition.tripod %>
-            </p>
+            <table class="condition-table">
+              <tr>
+                <td>カメラ</td>
+                <td><%= condition.camera %></td>
+              </tr>
+              <tr>
+                <td>レンズ</td>
+                <td><%= condition.lens %></td>
+              </tr>
+              <tr>
+                <td>天体望遠鏡</td>
+                <td><%= condition.telescope %></td>
+              </tr>
+              <tr>
+                <td>フィルタ</td>
+                <td><%= condition.filter %></td>
+              </tr>
+              <tr>
+                <td>マウント</td>
+                <td><%= condition.mount %></td>
+              </tr>
+              <tr>
+                <td>三脚</td>
+                <td><%= condition.tripod %></td>
+              </tr>
+            </table>
             <p class="condition-text">
               <%= condition.description %>
             </p>

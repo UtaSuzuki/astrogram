@@ -127,11 +127,17 @@ h1, h2 {
       padding-right: 20px;
       padding-left: 20px;
     }
+    
+    .event-table {
+      td {
+      padding-left: 20px;
+      }
+    }
 
     img {
       margin-top: 10px;
       margin-bottom: 20px;
-      width: 100%;
+      width: 30%;
     }
 
     .event-index-icon {
@@ -166,8 +172,53 @@ h1, h2 {
       padding-right: 20px;
       padding-left: 20px;
     }
+    
+    .condition-table {
+      td {
+      padding-right: 20px;
+      padding-left: 20px;
+      }
+    }
 
     .condition-index-icon {
+      width: 35px;
+      height: 30px;
+      margin-left: 20px;
+    }
+  }
+}
+
+.photo-new-wrapper {
+  padding-top: 120px;
+}
+
+.photo-index-wrapper {
+  padding-top: 70px;
+  background-color: #fafafa;
+  .photo-index-single {
+    background-color: #fff;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 30px;
+    border: 1px solid #e6ecf0;
+    border-radius: 3px;
+    .photo-author {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+
+    .photo-text {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+
+    img {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .photo-index-icon {
       width: 35px;
       height: 30px;
       margin-left: 20px;

@@ -19,8 +19,18 @@
               <%= event.user.name %>
             </h2>
             <%= image_tag event.image.url %>
-            <%= image_tag 'icons/heart.png', class: 'event-index-icon' %>
             <%= image_tag 'icons/comment.png', class: 'event-index-icon' %>
+            <table class="event-table">
+              <tr>
+                <td>開催日時</td>
+                <td><%= event.date.year %>/<%= event.date.month %>/<%= event.date.day %></td>
+                <td><%= event.start_time.hour %>:<%= event.start_time.min %></td>
+              </tr>
+              <tr>
+                <td>開催地</td>
+                <td><%= event.location %></td>
+              </tr>
+            </table>
             <p class="event-text">
               <%= event.description %>
             </p>

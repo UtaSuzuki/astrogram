@@ -1,0 +1,53 @@
+<div class="photo-new-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1 class="text-center">写真投稿</h1>
+        <%= form_for @photo do |f| %>
+          <!-- タイトル入力 -->
+          <div class="form-group">
+            <%= f.label :title, "タイトル (必須)" %>
+            <%= f.text_field :title %>
+          </div>
+          <!-- 画像選択 -->
+          <div class="form-group">
+            <%= f.label :image, "写真（必須）" %>
+            <%= f.file_field :image %>
+          </div>
+          <!-- 撮影条件入力 -->
+          <div class="form-group">
+            <%= f.label :condition_id, "撮影条件（必須）" %>
+            <%= f.select :condition_id, @condition %>
+          </div>
+          <!-- 撮影日入力 -->
+          <div class="form-group">
+            <%= f.label :date, "撮影日" %>
+            <%= f.date_select :date, {include_blank: true, start_year: 2020, use_month_numbers: true}, class: "datetime-box" %>
+          </div>
+          <!-- 撮影時刻入力 -->
+          <div class="form-group">
+            <%= f.label :time, "撮影時刻" %>
+            <%= f.time_select :time, {include_blank: true, minute_step: 5}, class: "datetime-box" %>
+          </div>
+          <!-- 撮影地入力 -->
+          <div class="form-group">
+            <%= f.label :location, "撮影地" %>
+            <%= f.text_field :location %>
+          </div>
+          <!-- 詳細説明入力 -->
+          <div class="form-group">
+            <%= f.label :description, "説明（必須）" %>
+            <%= f.text_area :description %>
+          </div>
+          <!-- 価格入力 -->
+          <div class="form-group">
+            <%= f.label :price, "価格（必須）" %>
+            <%= f.text_field :price %>
+          </div>
+          <!-- 投稿ボタン -->
+          <%= f.submit "投稿", class: 'btn btn-black btn-block' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

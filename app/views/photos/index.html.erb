@@ -1,0 +1,37 @@
+<div class="photo-index-wrapper">
+  <div class="container">
+    <!-- トップタイトル -->
+    <h1 class="text-black text-center">写真</h1>
+    <!-- 新規投稿ページへのボタン -->
+    <% if create_user? %>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <%= link_to "投稿", new_photo_path, class: 'btn btn-black btn-block' %>
+        </div>
+      </div>
+    <% end %>
+    <!-- 写真一覧 -->
+    <% @photos.each do |photo| %>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="photo-index-single">
+            <!-- 投稿者 -->
+            <h2 class="photo-author">
+              <%= @autors[photo.id-1] %>
+            </h2>
+            <!-- 画像 -->
+            <%= image_tag photo.image.url %>
+            <!-- いいね -->
+            <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
+            <!-- コメント -->
+            <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
+            <!-- 説明 -->
+            <p class="photo-text">
+              <%= photo.description %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

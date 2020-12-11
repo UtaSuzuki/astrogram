@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :users
   resources :events
   resources :conditions
+  resources :photos
 end
