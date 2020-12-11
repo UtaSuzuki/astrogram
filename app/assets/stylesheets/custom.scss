@@ -6,6 +6,10 @@ h1, h2 {
   color: #fff;
 }
 
+.text-black {
+  color: #000;
+}
+
 .btn-white {
   color: #fff;
   border: 1px solid #fff;
@@ -19,15 +23,27 @@ h1, h2 {
   }
 }
 
+.btn-black {
+  color: #565656;
+  border: 1px solid #565656;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.0);
+  
+  &:hover {
+    color: #565656;
+  }
+}
+
 .top-hero-wrapper {
   width: 100vw;
   height: 100vh;
-  background-image: image-url('bg-top.png');
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  background-color: #464646;
+  background-color: #fff;
 }
 
 .top-hero-container {
@@ -49,12 +65,11 @@ h1, h2 {
 .users-new-wrapper {
   width: 100vw;
   height: 100vh;
-  background-image: image-url("bg-top.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  background-color: #464646;
+  background-color: #fff;
   
   .users-new-container {
     padding-top: 220px;
@@ -74,9 +89,9 @@ h1, h2 {
 
 .navbar-transparent {
   margin-bottom: 0px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   a {
-    color: #fff !important;
+    color: #000 !important;
   }
   
   .navbar-brand {
@@ -86,19 +101,6 @@ h1, h2 {
   
   img {
     height: 40px;
-  }
-}
-
-.btn-black {
-  color: #565656;
-  border: 1px solid #565656;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  font-size: 20px;
-  background-color: rgba(0, 0, 0, 0.0);
-  
-  &:hover {
-    color: #565656;
   }
 }
 
