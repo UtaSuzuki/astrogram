@@ -1,0 +1,72 @@
+<div class="photo-show-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="photo-show-single">
+          <h3 class="photo-author">
+            <%= @author %>
+          </h3>
+          <h2>
+            「<%= @photo.title %>」
+          </h2>
+          <%= image_tag @photo.image.url %>
+          <h3>撮影情報</h3>
+          <table class="photo-table">
+            <% if !@photo.date.nil? %>
+              <tr>
+                <td>撮影日時</td>
+                <td><%= @photo.date.year %>/<%= @photo.date.month %>/<%= @photo.date.day %></td>
+                <td><%= @photo.time.hour %>:<%= @photo.time.min %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td>撮影地</td>
+              <td><%= @photo.location %></td>
+            </tr>
+          </table>
+          <h3>撮影機材</h3>
+          <table class="photo-table">
+            <tr>
+              <td>カメラ</td>
+              <td><%= @condition.camera %></td>
+            </tr>
+            <tr>
+              <td>レンズ</td>
+              <td><%= @condition.lens %></td>
+            </tr>
+            <tr>
+              <td>天体望遠鏡</td>
+              <td><%= @condition.telescope %></td>
+            </tr>
+            <tr>
+              <td>フィルタ</td>
+              <td><%= @condition.filter %></td>
+            </tr>
+            <tr>
+              <td>マウント</td>
+              <td><%= @condition.mount %></td>
+            </tr>
+            <tr>
+              <td>三脚</td>
+              <td><%= @condition.tripod %></td>
+            </tr>
+          </table>
+          <h3>価格</h3>
+          <p class="photo-text">
+            <%= @photo.price %>円
+            <span>
+              <% if logged_in? %>
+                <%= link_to "購入", "#", class: "btn btn-black btn-block" %>
+              <% else %>
+                <%= link_to "購入", login_path, class: "btn btn-black btn-block" %>
+              <% end %>
+            </span>
+          </p>
+          <p class="photo-text">
+            <%= @photo.description %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

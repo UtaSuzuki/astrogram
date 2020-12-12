@@ -14,22 +14,24 @@
     <% @photos.each do |photo| %>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-          <div class="photo-index-single">
-            <!-- 投稿者 -->
-            <h2 class="photo-author">
-              <%= @autors[photo.id-1] %>
-            </h2>
-            <!-- 画像 -->
-            <%= image_tag photo.image.url %>
-            <!-- いいね -->
-            <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
-            <!-- コメント -->
-            <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
-            <!-- 説明 -->
-            <p class="photo-text">
-              <%= photo.description %>
-            </p>
-          </div>
+          <%= link_to photo_path(photo.id) do %>
+            <div class="photo-index-single">
+              <!-- 投稿者 -->
+              <h2 class="photo-author">
+                <%= @autors[photo.id-1] %>
+              </h2>
+              <!-- 画像 -->
+              <%= image_tag photo.image.url %>
+              <!-- いいね -->
+              <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
+              <!-- コメント -->
+              <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
+              <!-- 説明 -->
+              <p class="photo-text">
+                <%= photo.description %>
+              </p>
+            </div>
+          <% end %>
         </div>
       </div>
     <% end %>

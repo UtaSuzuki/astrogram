@@ -225,3 +225,78 @@ h1, h2 {
     }
   }
 }
+
+.photo-show-wrapper {
+  padding-top: 70px;
+  background-color: #fafafa;
+  
+  .photo-show-single {
+	  background-color: #fff;
+	  padding-top: 20px;
+	  padding-bottom: 20px;
+	  margin-top: 30px;
+	  border: 1px solid #e6ecf0;
+	  border-radius: 30px;
+  
+	  .photo-author {
+	    padding-right: 20px;
+	    padding-left: 20px;
+	  }
+  
+	  .photo-text {
+	    padding-right: 20px;
+	    padding-left: 20px;
+	  }
+  
+	  img {
+	    margin-top: 10px;
+	    margin-bottom: 20px;
+	    width: 100%;
+	  }
+    
+    .photo-table {
+      td {
+      padding-right: 20px;
+      padding-left: 20px;
+      }
+    }
+  
+	  .photo-index-icon {
+	    width: 35px;
+	    height: 30px;
+	    margin-left: 20px;
+	  }
+  
+	  .photo-favorited-icon {
+	    width: 35px;
+	    height: 30px;
+	    margin-left: 20px;
+	    filter: invert(100%) sepia(100%) hue-rotate(240deg) saturate(100000%) brightness(100%);
+	    
+	  }
+  
+	  .section-comment {
+	    margin-top: 10px;
+  
+	    .comment-title {
+	  	padding-right: 20px;
+	  	padding-left: 20px;
+	    }
+  
+	    .comment-user {
+	  	padding-right: 20px;
+	  	padding-left: 20px;
+	    }
+  
+	    .comment-content {
+	  	padding-right: 20px;
+	  	padding-left: 40px;
+	    }
+  
+	    .form-group {
+	  	margin-top: 20px;
+	  	margin-bottom: 20px;
+	    }
+	  }
+  }
+}

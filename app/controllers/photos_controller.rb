@@ -1,9 +1,4 @@
 class PhotosController < ApplicationController
-  def index
-    @photos = Photo.all
-    @autors = User.joins(conditions: :photos).pluck("users.name")
-  end
-  
   def new
     @photo = Photo.new
     @condition = Condition.where(user_id: current_user.id).pluck('title', 'id')
@@ -19,6 +14,17 @@ class PhotosController < ApplicationController
       flash.now[:danger] = '写真の投稿に失敗しました'
       render :new
     end
+  end
+  
+  def index
+    @photos = Photo.all
+    @autors = User.joins(conditions: :photos).pluck("name")
+  end
+  
+  def show
+    @photo = Photo.find(params[:id])
+    @author = User.joins(conditions: :photos).pluck("name")[@photo.id-1]
+    @condition = Condition.find(@photo.condition_id)
   end
   
   private
