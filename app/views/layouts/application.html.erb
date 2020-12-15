@@ -63,6 +63,18 @@
               <% end %>
             </li>
           <% else %>
+            <!-- 写真一覧 -->
+            <li>
+              <%= link_to photos_path do %>
+                <%= image_tag "icons/photo.png" %>
+              <% end %>
+            </li>
+            <!-- イベント一覧 -->
+            <li>
+              <%= link_to events_path do %>
+                <%= image_tag "icons/event.png" %>
+              <% end %>
+            </li>
             <!-- アカウント登録 -->
             <li>
               <%= link_to new_user_path do %>

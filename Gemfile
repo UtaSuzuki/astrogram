@@ -77,3 +77,6 @@ gem 'carrierwave'
 # input the Date/Time form
 gem 'bootstrap4-datetime-picker-rails'
 gem 'momentjs-rails'
+
+gem 'nokogiri'
+gem 'activerecord-import'

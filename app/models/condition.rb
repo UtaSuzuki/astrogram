@@ -5,4 +5,5 @@ class Condition < ApplicationRecord
   
   belongs_to :user
   has_many :photos
+  has_one :itemLink
 end
