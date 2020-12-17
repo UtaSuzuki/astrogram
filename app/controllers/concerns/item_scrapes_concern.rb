@@ -21,6 +21,8 @@ module ItemScrapesConcern
     doc = Nokogiri::HTML.parse(html, nil, charset)
 
     @scrapedLink = []
+    
+    targetECname = ['amazon', 'rakuten', 'yahoo', 'vixen', 'syumitto', 'kyoei', 'tomytec']
 
     # href抜き出し
     # 購入サイト候補：vixen, syumitto, kyoei-tokyo, amazon, rakuten, tomytec
@@ -31,8 +33,5 @@ module ItemScrapesConcern
       end
     end
     @scrapedLink = @scrapedLink[0]
-    # if @itemLink.size > 255 then
-    #   @itemLink = "xxx"
-    # end
   end
 end
