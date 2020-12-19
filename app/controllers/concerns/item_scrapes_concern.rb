@@ -20,18 +20,23 @@ module ItemScrapesConcern
     # htmlをパース(解析)してオブジェクトを生成
     doc = Nokogiri::HTML.parse(html, nil, charset)
 
-    @scrapedLink = []
-    
-    targetECname = ['amazon', 'rakuten', 'yahoo', 'vixen', 'syumitto', 'kyoei', 'tomytec']
+    iLink = 0
+    scrapedLinks = ''
+    scrapedSites = ''
+    targetECsites = ['amazon', 'rakuten', 'yahoo', 'vixen', 'syumitto', 'kyoei', 'tomytec']
 
     # href抜き出し
     # 購入サイト候補：vixen, syumitto, kyoei-tokyo, amazon, rakuten, tomytec
-    doc.xpath('//div[@class="kCrYT"]/a').each do |node|
-      if node[:href].include?('vixen') then
-        @scrapedLink << node[:href][/=(.*?)&/, 1]
-        break
+    targetECsites.each do |site|
+      doc.xpath('//div[@class="kCrYT"]/a').each do |node|
+        if node[:href].include?(site) then
+          iLink = iLink + 1
+          scrapedSites = scrapedSites + "," + site
+          scrapedLinks = scrapedLinks + "," + node[:href][/=(.*?)&/, 1]
+          break
+        end
       end
     end
-    @scrapedLink = @scrapedLink[0]
+    return iLink.to_s + scrapedSites + scrapedLinks
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_072721) do
+ActiveRecord::Schema.define(version: 2020_12_19_063235) do
 
   create_table "conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
@@ -44,14 +44,15 @@ ActiveRecord::Schema.define(version: 2020_12_15_072721) do
 
   create_table "item_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "condition_id"
-    t.string "camera"
-    t.string "lens"
-    t.string "telescope"
-    t.string "filter"
-    t.string "mount"
-    t.string "tripod"
+    t.text "camera"
+    t.text "lens"
+    t.text "telescope"
+    t.text "filter"
+    t.text "mount"
+    t.text "tripod"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "nLink"
   end
 
   create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
