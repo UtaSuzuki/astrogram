@@ -25,6 +25,7 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     @author = User.joins(conditions: :photos).pluck("name")[@photo.id-1]
     @condition = Condition.find(@photo.condition_id)
+    @itemLink  = ItemLink.find_by(condition_id: @condition.id)
   end
   
   private

@@ -4,11 +4,11 @@ class ConditionsController < ApplicationController
   
   def index
     @conditions = Condition.where(user_id: current_user.id)
-    @itemLinks  = ItemLink.joins(:conditions).pluck("camera")
-    binding.pry
+    if !@conditions.nil? then
+      @itemLinks  = ItemLink.joins(:condition)
+    end
     # conditionsテーブルとitemLinkテーブルを連結して、viewに渡すデータを割り出す
     # itemLinkのurlはcsv形式(nLink,site1,site2,...,url1,url2,...)なので、各々配列に直し、インスタンス変数に格納してviewに渡す
-    
   end
   
   def new
@@ -16,11 +16,11 @@ class ConditionsController < ApplicationController
   end
   
   def create
-    # itemLinkの各カラム構造は['url1','url2',...]とし、indexメソッド内で分解する
     @condition = current_user.conditions.new(condition_params)
     if @condition.save
       @itemLink = ItemLink.new
       @itemLink.condition_id = @condition.id
+      # 各アイテムの購入サイトリンク生成 (csv形式：nLink, site1name, site2name, ... , site1URL, site2URL, ...)
       @itemLink.camera       = set_item_link(@condition.camera)
       @itemLink.lens         = set_item_link(@condition.lens)
       @itemLink.telescope    = set_item_link(@condition.telescope)

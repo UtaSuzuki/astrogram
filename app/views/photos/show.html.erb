@@ -15,8 +15,8 @@
             <% if !@photo.date.nil? %>
               <tr>
                 <td>撮影日時</td>
-                <td><%= @photo.date.year %>/<%= @photo.date.month %>/<%= @photo.date.day %></td>
-                <td><%= @photo.time.hour %>:<%= @photo.time.min %></td>
+                <td><%= @photo.date.strftime('%Y/%m/%d') %></td>
+                <td><%= @photo.time.strftime('%H:%M') %></td>
               </tr>
             <% end %>
             <tr>
@@ -29,27 +29,67 @@
             <tr>
               <td>カメラ</td>
               <td><%= @condition.camera %></td>
+                <% itemLinkArr = @itemLink.camera.split(',') %>
+                <% nLink = itemLinkArr[0].to_i %>
+                <% nLink.times do |i| %>
+                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
+                <% end %>
             </tr>
+            <% if !@condition.lens.empty? then %>
             <tr>
               <td>レンズ</td>
               <td><%= @condition.lens %></td>
+                <% itemLinkArr = @itemLink.lens.split(',') %>
+                <% nLink = itemLinkArr[0].to_i %>
+                <% nLink.times do |i| %>
+                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
+                <% end %>
             </tr>
+            <% end %>
+            <% if !@condition.telescope.empty? then %>
             <tr>
               <td>天体望遠鏡</td>
               <td><%= @condition.telescope %></td>
+                <% itemLinkArr = @itemLink.telescope.split(',') %>
+                <% nLink = itemLinkArr[0].to_i %>
+                <% nLink.times do |i| %>
+                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
+                <% end %>
             </tr>
+            <% end %>
+            <% if !@condition.filter.empty? then %>
             <tr>
               <td>フィルタ</td>
               <td><%= @condition.filter %></td>
+                <% itemLinkArr = @itemLink.filter.split(',') %>
+                <% nLink = itemLinkArr[0].to_i %>
+                <% nLink.times do |i| %>
+                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
+                <% end %>
             </tr>
+            <% end %>
+            <% if !@condition.mount.empty? then %>
             <tr>
               <td>マウント</td>
               <td><%= @condition.mount %></td>
+                <% itemLinkArr = @itemLink.mount.split(',') %>
+                <% nLink = itemLinkArr[0].to_i %>
+                <% nLink.times do |i| %>
+                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
+                <% end %>
             </tr>
+            <% end %>
+            <% if !@condition.tripod.empty? then %>
             <tr>
               <td>三脚</td>
               <td><%= @condition.tripod %></td>
+                <% itemLinkArr = @itemLink.tripod.split(',') %>
+                <% nLink = itemLinkArr[0].to_i %>
+                <% nLink.times do |i| %>
+                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
+                <% end %>
             </tr>
+            <% end %>
           </table>
           <h3>価格</h3>
           <p class="photo-text">
