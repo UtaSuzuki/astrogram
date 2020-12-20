@@ -1,0 +1,60 @@
+<div class="event-show-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="event-show-single">
+          <h3 class="event-author">
+            <%= @author %>
+          </h3>
+          <h2>
+            「<%= @event.title %>」
+          </h2>
+          <%= image_tag @event.image.url %>
+          <h3>イベント情報</h3>
+          <table class="event-table">
+            <tr>
+              <td>開催日時</td>
+              <td><%= @event.date.strftime('%Y/%m/%d') %></td>
+              <% if @event.end_time.blank? then %>
+                <td><%= @event.start_time.strftime('%H:%M') %> ～ </td>
+              <% else %>
+                <td><%= @event.start_time.strftime('%H:%M') %> ～ <%= @event.end_time.strftime('%H:%M') %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <td>開催地</td>
+              <td><%= @event.location %></td>
+            </tr>
+            <tr>
+              <td>詳細</td>
+              <td><%= @event.description %></td>
+            </tr>
+            <% if !@event.recruit_status then %>
+              <tr>
+                <td>参加締め切り</td>
+                <td><%= @event.deadline %></td>
+              </tr>
+              <% if !@event.acceptNo.empty? then %>
+                <tr>
+                  <td>参加可能人数</td>
+                  <td><%= @event.acceptNo %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </table>
+          <p class="event-text">
+            <% if @event.recruit_status then %>
+              <% if logged_in? %>
+                <%= link_to "参加", "#", class: "btn btn-black btn-block" %>
+              <% else %>
+                <%= link_to "参加", login_path, class: "btn btn-black btn-block" %>
+              <% end %>
+            <% else %>
+              参加受付が終了しています。
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

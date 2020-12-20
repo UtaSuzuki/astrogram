@@ -1,8 +1,4 @@
 class EventsController < ApplicationController
-  def index
-    @events = Event.all
-  end
-  
   def new
     @event = Event.new
   end
@@ -16,6 +12,15 @@ class EventsController < ApplicationController
       flash.now[:danger] = 'イベントの投稿に失敗しました'
       render :new
     end
+  end
+  
+  def index
+    @events = Event.all
+  end
+  
+  def show
+    @event = Event.find(params[:id])
+    @author = User.find(@event.user_id).name
   end
   
   private
