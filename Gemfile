@@ -47,6 +47,8 @@ group :development, :test do
   gem 'pry-doc'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
+  
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -80,3 +82,5 @@ gem 'momentjs-rails'
 
 gem 'nokogiri'
 gem 'activerecord-import'
+
+gem 'payjp'

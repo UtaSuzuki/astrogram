@@ -1,0 +1,50 @@
+<div class="cards-new-wrapper">
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-md-offset-4 col-md-4 cards-new-container">
+        <h1 class="text-center text-black">カード登録</h1>
+        <%= form_for @card do |f| %>
+          <!-- カード番号 -->
+          <div class="form-group">
+            <%= f.label :card_number, 'カード番号', class: "text-black" %>
+            <%= f.text_field :card_number, class: "form-control" %>
+          </div>
+          <!-- 有効期限 -->
+          <div class="form-group">
+            <%= f.label :exp_month, '有効期限', class: "text-black" %>
+            <%= f.month_select :exp_month, class: "form-control" %>月/
+            <%= f.year_select :exp_year, class: "form-control" %>年
+          </div>
+          <!-- セキュリティコード -->
+          <div class="form-group">
+            <%= f.label :cvc, 'セキュリティコード', class: "text-black" %>
+            <%= f.text_field :cvc, class: "form-control" %>
+          </div>
+          <!-- パスワード確認入力 -->
+          <div class="form-group">
+            <%= f.label :password_confirmation, class: "text-black" %>
+            <%= f.password_field :password_confirmation, class: "form-control" %>
+          </div>
+          <!-- ユーザ種別選択 -->
+          <div class="form-group">
+            <%= f.label :kind, "User Type", class: "text-black" %>
+            <!-- <div class="row col-md-6 btn-group" data-toggle="buttons"> -->
+              <label class="btn btn-outline-secondary active" style="width:30%">
+                <%= f.radio_button :kind, "normal", checked: true %>
+                <%= f.label :kind, "Normal", {value: "nomal", style: "desplay: inline-block; color: #000;"} %>
+              </label>
+              <label class="btn btn-outline-secondary active" style="width:30%">
+                <%= f.radio_button :kind, "creater" %>
+                <%= f.label :kind, "Creater", {value: "creater", style: "desplay: inline-block; color: #000;"} %>
+              </label>
+            <!--</div> -->
+          </div>
+          <!-- 登録ボタン -->
+          <%= f.submit "Create", class: "btn-block btn-black" %>
+        <% end %>
+      </div>
+    </div>
+    
+  </div>
+</div>

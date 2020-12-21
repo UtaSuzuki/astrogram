@@ -8,8 +8,11 @@ Rails.application.routes.draw do
   post   '/login',  to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   
+  get    '/purchase', to: 'photos#purchase'
+  
   resources :users
   resources :events
   resources :conditions
   resources :photos
+  resources :cards
 end

@@ -28,6 +28,11 @@ class PhotosController < ApplicationController
     @itemLink  = ItemLink.find_by(condition_id: @condition.id)
   end
   
+  def purchase
+    @photo = Photo.find(params[:id])
+    @author = User.joins(conditions: :photos).pluck("name")[@photo.id-1]
+  end
+  
   private
   def photo_params
     params.require(:photo).permit(:condition_id, :title, :image, :date, :time, :location, :description, :price)
