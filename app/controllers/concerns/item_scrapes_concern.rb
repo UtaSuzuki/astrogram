@@ -8,10 +8,12 @@ module ItemScrapesConcern
     if item.length <= 0 then
       return
     end
+    # ターゲットサイト名
+    targetECsites = ['amazon', 'rakuten', 'yahoo', 'vixen', 'syumitto', 'kyoei', 'tomytec']
     item = item.tr(" 　", "++")  # 半角/全角スペースを"+"に置換
     # 検索文字の日本語対応 : URI.encode
     # スクレイピング先 (Google検索エンジン)
-    url = 'https://www.google.com/search?q=' + item
+    url = 'https://www.google.com/search?q=' + targetECsites + '+' + item
     if url =~ /(?:\p{Hiragana}|\p{Katakana}|[一-龠々])/ then
       url = URI.encode url
     end
@@ -25,8 +27,6 @@ module ItemScrapesConcern
     # htmlをパース(解析)してオブジェクトを生成
     doc = Nokogiri::HTML.parse(html, nil, charset)
 
-    # ターゲットサイト名
-    targetECsites = ['amazon', 'rakuten', 'yahoo', 'vixen', 'syumitto', 'kyoei', 'tomytec']
     
     # 出力要素初期化
     iLink = 0

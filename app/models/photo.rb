@@ -8,6 +8,7 @@ class Photo < ApplicationRecord
   validates :price, presence: true
   
   belongs_to :condition
+  has_many :orders
   
   mount_uploader :image, ImageUploader
 end

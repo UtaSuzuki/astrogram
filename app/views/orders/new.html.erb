@@ -1,0 +1,56 @@
+<div class="purchase-index-wrapper">
+  <div class="container">
+    <!-- トップタイトル -->
+    <h1 class="text-black text-center">購入内容の確認</h1>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <!-- 購入内容表示 -->
+        <div class="photo-index-single">
+          <!-- 投稿者 -->
+          <h3 class="photo-author">
+            <%= @autor %>
+          </h3>
+          <h2>
+            「<%= @photo.title %>」
+          </h2>
+          <%= image_tag @photo.image.url %>
+          <p class="photo-text">
+            <%= @photo.description %>
+          </p>
+          <h3>価格</h3>
+          <p class="photo-text">
+            <%= @photo.price.to_s + "円" %>
+          </p>
+          <!-- クレジットカード登録済みの場合の表示 -->
+          <% if current_user.card.present? %>
+            <div class="card-info-title">
+              クレジットカード情報
+              <div class="card-brand">
+                <%= image_tag "cards/#{@card_src}", class: "card-brand-img", alt: @card_brand %>
+              </div>
+              <div class="card-number">
+                <h3>カード番号</h3>
+                <%= "**** **** **** " + @customer_card.last4 %>
+              </div>
+              <div class="card-number">
+                <h3>有効期限</h3>
+                <%= @exp_month + " / " + @exp_year %>
+              </div>
+            </div>
+            <%= link_to "購入する", pay_photo_order_path(id: @photo.id), method: :post, class: "btn btn-black btn-block" %>
+          <% else %>
+            <%= form_tag action: :pay, method: :post do %>
+              <script
+                type="text/javascript"
+                src="https://checkout.pay.jp/"
+                class="payjp-button"
+                data-key="<%= ENV["PAYJP_PUBLIC_KEY"] %>"
+                data-text="購入する">
+              </script>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

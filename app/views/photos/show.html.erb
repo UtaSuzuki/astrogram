@@ -96,7 +96,7 @@
             <%= @photo.price %>円
             <span>
               <% if logged_in? %>
-                <%= link_to "購入", purchase_path(id: @photo.id), class: "btn btn-black btn-block" %>
+                <%= link_to "購入", new_order_path(id: @photo.id), class: "btn btn-black btn-block" %>
               <% else %>
                 <%= link_to "購入", login_path, class: "btn btn-black btn-block" %>
               <% end %>

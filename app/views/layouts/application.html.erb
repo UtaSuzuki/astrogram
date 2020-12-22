@@ -56,6 +56,12 @@
                 <% end %>
               </li>
             <% end %>
+            <!-- マイページ -->
+            <li>
+              <%= link_to user_path(current_user.id) do %>
+                <%= image_tag "icons/account.png" %>
+              <% end %>
+            </li>
             <!-- ログアウト -->
             <li>
               <%= link_to logout_path, method: :delete do %>

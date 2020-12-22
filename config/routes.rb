@@ -8,11 +8,17 @@ Rails.application.routes.draw do
   post   '/login',  to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   
-  get    '/purchase', to: 'photos#purchase'
-  
-  resources :users
+  resources :users, only: [:new, :create, :show]
   resources :events
   resources :conditions
-  resources :photos
-  resources :cards
+  resources :photos do
+    resources :orders do
+      member do
+        get 'new'
+        post 'pay'
+      end
+    end
+  end
+  resources :cards, only: [:new, :create, :show, :destroy]
+  resources :orders, only: [:new]
 end
