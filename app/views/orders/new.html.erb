@@ -37,17 +37,18 @@
                 <%= @exp_month + " / " + @exp_year %>
               </div>
             </div>
-            <%= link_to "購入する", pay_photo_order_path(id: @photo.id), method: :post, class: "btn btn-black btn-block" %>
+            <%= link_to "購入する", pay_photo_order_path(id: @card.user_id, photo_id: @photo.id), method: :post, class: "btn btn-black btn-block" %>
           <% else %>
-            <%= form_tag action: :pay, method: :post do %>
+            <%= form_tag pay_photo_order_path(id: current_user.id, photo_id: @photo.id), method: :post do %>
               <script
                 type="text/javascript"
                 src="https://checkout.pay.jp/"
                 class="payjp-button"
                 data-key="<%= ENV["PAYJP_PUBLIC_KEY"] %>"
-                data-text="購入する">
+                data-text="カードを登録する">
               </script>
             <% end %>
+            <p>決済方法決定</p>
           <% end %>
         </div>
       </div>

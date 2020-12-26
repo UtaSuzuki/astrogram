@@ -43,21 +43,21 @@ class OrdersController < ApplicationController
   end
   
   def pay
-    @photo = Photo.find(params[:id])
+    @photo = Photo.find(params[:photo_id])
     @author = User.joins(conditions: :photos).pluck("name")[@photo.id-1]
     
     # 購入テーブル登録済み商品は二重で購入されないようにする（2重決済の防止）
-    if @photo.order.present?
+    if @photo.orders.find_by(user_id: current_user.id).present?
       redirect_to photo_path(@photo.id), info: "購入済みです"
     else
       # 同時に2人が購入した場合の、二重購入処理防止
+      # API秘密鍵の呼び出し
+      Payjp.api_key = ENV['PAYJP_SECRET_KEY']
       @photo.with_lock do
         if current_user.card.present?
           # ユーザがクレジットカード登録済みの場合の処理
           # ユーザのクレジットカード情報を抜き出し
           @card = Card.find_by(user_id: current_user.id)
-          # API秘密鍵の呼び出し
-          Payjp.api_key = ENV['PAYJP_SECRET_KEY']
           # 登録カードでの決済処理
           @charge = Payjp::Charge.create(
             amount: @photo.price,
@@ -66,13 +66,28 @@ class OrdersController < ApplicationController
           )
         else
           # ユーザがクレジットカード未登録の場合の処理
-          # APIの"Checkout"機能で決済処理を記述
-          Payjp::Charge.create(
-            amount: @photo.price,
+          # 生成されたpayjp-tokenから、ユーザ情報と紐づけて、payjpに登録
+          customer = Payjp::Customer.create(
+            description: 'クレジットカード登録',
+            email: current_user.email,
             card: params['payjp-token'],
+            metadata: {user_id: current_user.id}
+          )
+          # cardモデルへ登録
+          @card = Card.new(user_id: current_user.id, customer_id: customer.id, default_card_id: customer.default_card)
+          if @card.save
+            flash.now[:success] = "クレジットカードの登録が完了しました"
+          else
+            flash.now[:danger] = "クレジットカードの登録に失敗しました"
+          end
+          # APIの"Checkout"機能で決済処理を記述
+          @charge = Payjp::Charge.create(
+            amount: @photo.price,
+            customer: Payjp::Customer.retrieve(@card.customer_id),
             currency: 'jpy'
           )
         end
+        
         # 購入テーブルへの登録処理
         @order = Order.create(user_id: current_user.id, photo_id: @photo.id)
         if @order.save
