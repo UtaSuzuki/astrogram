@@ -99,4 +99,17 @@ class OrdersController < ApplicationController
       end
     end
   end
+  
+  def index
+    @orders = Order.where(user_id: current_user.id)
+    @photos = Photo.joins(:orders).select("photos.*", "orders.*")
+    # joinsした後に、ordersのuser_idを取得できない  !!!
+    binding.pry
+  end
+  
+  def purchase_index
+    @orders = Order.where(user_id: current_user.id)
+    @customers = "#"
+    
+  end
 end

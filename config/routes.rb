@@ -20,5 +20,9 @@ Rails.application.routes.draw do
     end
   end
   resources :cards, only: [:new, :create, :show, :destroy]
-  resources :orders, only: [:new]
+  resources :orders, only: [:new, :index] do
+    member do
+      get 'purchase_index'
+    end
+  end
 end
