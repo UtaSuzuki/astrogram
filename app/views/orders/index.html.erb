@@ -1,0 +1,35 @@
+<div class="order-index-wrapper">
+  <div class="container">
+    <!-- トップタイトル -->
+    <h1 class="text-black text-center">購入履歴</h1>
+    <!-- 購入履歴一覧 -->
+    <% @purchases.each do |purchase| %>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <%= link_to photo_path(purchase.photo_id) do %>
+            <div class="order-index-single">
+              <!-- タイトル -->
+              <h3 class="photo-title">
+                <%= purchase.title %>
+              </h3>
+              <!-- 投稿者 -->
+              <p class="photo-author">
+                <%= @authors[purchase.user_id-1].name %>
+              </p>
+              <!-- 画像 -->
+              <%= image_tag '/uploads/photo/image/' + purchase.photo_id.to_s + '/' + purchase.image %>
+              <!-- 値段 -->
+              <p class="photo-price">
+                <%= purchase.price %>円
+              </p>
+              <!-- 購入日 -->
+              <p class="purchase-date">
+                <%= purchase.created_at.strftime('%Y/%m/%d %H:%M') %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

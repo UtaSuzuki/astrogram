@@ -1,0 +1,32 @@
+<div class="sales-index-wrapper">
+  <div class="container">
+    <!-- トップタイトル -->
+    <h1 class="text-black text-center">販売履歴</h1>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="sale-index-single">
+          <!-- 販売履歴一覧 -->
+          <table class="bought-users-table">
+            <tr>
+              <td>タイトル</td>
+              <td>価格</td>
+              <td>購入ユーザ名</td>
+              <td>購入日時</td>
+            </tr>
+            <% @sales.each do |sale| %>
+              <tr>
+                <td>
+                  <%= link_to photo_path(sale.photo_id) do %>
+                    <%= sale.title %></td>
+                  <% end %>
+                <td><%= sale.price %>円</td>
+                <td><%= @customers[sale.user_id-1].name %></td>
+                <td><%= sale.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

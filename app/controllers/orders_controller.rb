@@ -101,15 +101,30 @@ class OrdersController < ApplicationController
   end
   
   def index
-    @orders = Order.where(user_id: current_user.id)
-    @photos = Photo.joins(:orders).select("photos.*", "orders.*")
-    # joinsした後に、ordersのuser_idを取得できない  !!!
-    binding.pry
+    @purchases = Condition.joins(photos: :orders).select("
+      conditions.user_id,
+      photos.title,
+      photos.image,
+      photos.price,
+      orders.photo_id,
+      orders.created_at
+      ").where(
+        orders:{user_id: current_user.id}
+        )
+    @authors = User.all
   end
   
-  def purchase_index
-    @orders = Order.where(user_id: current_user.id)
-    @customers = "#"
-    
+  def sales_index
+    @sales = Condition.joins(photos: :orders).select("
+      photos.title,
+      photos.price,
+      orders.user_id,
+      orders.photo_id,
+      orders.created_at
+      ").where(
+        user_id: current_user.id 
+        )
+    @customers = User.all
   end
+  
 end

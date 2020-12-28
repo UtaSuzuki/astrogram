@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :cards, only: [:new, :create, :show, :destroy]
   resources :orders, only: [:new, :index] do
     member do
-      get 'purchase_index'
+      get 'sales_index'
     end
   end
 end
