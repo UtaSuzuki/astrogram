@@ -8,15 +8,26 @@ Rails.application.routes.draw do
   post   '/login',  to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   
-  resources :users, only: [:new, :create, :show]
-  resources :events
-  resources :conditions
+  get    'participants/index'
+  post   '/participants', to: 'participants#create'
+  delete '/participants', to: 'participants#destroy'
+  
+  resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
+  resources :events do
+    member do
+      get 'user_index'
+    end
+  end
+  resources :conditions, only: [:new, :create, :index, :show, :edit, :update, :destroy]
   resources :photos do
     resources :orders do
       member do
         get 'new'
         post 'pay'
       end
+    end
+    member do
+      get 'user_index'
     end
   end
   resources :cards, only: [:new, :create, :show, :destroy]

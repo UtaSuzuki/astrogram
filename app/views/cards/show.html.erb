@@ -16,6 +16,15 @@
             <h3>有効期限</h3>
             <%= @exp_month + " / " + @exp_year %>
           </div>
+          <%= form_with url: cards_path do %>
+            <script
+              type="text/javascript"
+              src="https://checkout.pay.jp/"
+              class="payjp-button"
+              data-key="<%= ENV["PAYJP_PUBLIC_KEY"] %>"
+              data-text="別のカードを登録する">
+            </script>
+          <% end %>
           <%= link_to "削除", card_path, method: :delete, class: 'btn btn-block btn-black' %>
         </div>  
       </div>

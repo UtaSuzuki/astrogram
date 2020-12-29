@@ -31,37 +31,37 @@
         <ul class="nav navbar-nav navbar-right">
           <% if logged_in? %>
             <!-- いいね一覧 -->
-            <li>
-              <%= link_to "#" do %>
-                <%= image_tag "icons/heart.png" %>
-              <% end %>
-            </li>
-            <!-- 写真一覧 -->
-            <li>
-              <%= link_to photos_path do %>
-                <%= image_tag "icons/photo.png" %>
-              <% end %>
-            </li>
-            <!-- イベント一覧 -->
-            <li>
-              <%= link_to events_path do %>
-                <%= image_tag "icons/event.png" %>
-              <% end %>
-            </li>
-            <!-- 撮影情報ページ -->
-            <% if create_user? %>
+            <% if false %>
               <li>
-                <%= link_to conditions_path do %>
-                  <%= image_tag "icons/condition.png" %>
+                <%= link_to "#" do %>
+                  <%= image_tag "icons/heart.png" %>
+                <% end %>
+              </li>
+            <% end %>
+            <!-- 写真一覧 -->
+            <% if request.fullpath != "/photos" %>
+              <li>
+                <%= link_to photos_path do %>
+                  <%= image_tag "icons/photo.png" %>
+                <% end %>
+              </li>
+            <% end %>
+            <!-- イベント一覧 -->
+            <% if request.fullpath != "/events" %>
+              <li>
+                <%= link_to events_path do %>
+                  <%= image_tag "icons/event.png" %>
                 <% end %>
               </li>
             <% end %>
             <!-- マイページ -->
-            <li>
-              <%= link_to user_path(current_user.id) do %>
-                <%= image_tag "icons/account.png" %>
-              <% end %>
-            </li>
+            <% if request.fullpath != "/users/" + current_user.id.to_s %>
+              <li>
+                <%= link_to user_path(current_user.id) do %>
+                  <%= image_tag "icons/account.png" %>
+                <% end %>
+              </li>
+            <% end %>
             <!-- ログアウト -->
             <li>
               <%= link_to logout_path, method: :delete do %>
@@ -70,23 +70,29 @@
             </li>
           <% else %>
             <!-- 写真一覧 -->
-            <li>
-              <%= link_to photos_path do %>
-                <%= image_tag "icons/photo.png" %>
-              <% end %>
-            </li>
+            <% if request.fullpath != "/photos" %>
+              <li>
+                <%= link_to photos_path do %>
+                  <%= image_tag "icons/photo.png" %>
+                <% end %>
+              </li>
+            <% end %>
             <!-- イベント一覧 -->
-            <li>
-              <%= link_to events_path do %>
-                <%= image_tag "icons/event.png" %>
-              <% end %>
-            </li>
+            <% if request.fullpath != "/events" %>
+              <li>
+                <%= link_to events_path do %>
+                  <%= image_tag "icons/event.png" %>
+                <% end %>
+              </li>
+            <% end %>
             <!-- アカウント登録 -->
-            <li>
-              <%= link_to new_user_path do %>
-                <%= image_tag "icons/account_new.png" %>
-              <% end %>
-            </li>
+            <% if request.fullpath != "/users/new" %>
+              <li>
+                <%= link_to new_user_path do %>
+                  <%= image_tag "icons/account_new.png" %>
+                <% end %>
+              </li>
+            <% end %>
             <!-- ログイン -->
             <li>
               <%= link_to login_path do %>

@@ -9,18 +9,21 @@
       </div>
     </div>
     <!-- 登録済み撮影条件一覧 -->
+    <% iCondition = -1 %>
     <% @conditions.each do |condition| %>
+    <% iCondition = iCondition + 1 %>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
           <div class="condition-index-single">
             <h2 class="condition-title">
-              <%= condition.title %>
+              <%= link_to condition.title, edit_condition_path(condition.id) %>
             </h2>
             <table class="condition-table">
               <tr>
                 <td>カメラ</td>
-                <td><%= condition.camera %></td>
-                <% itemLinkArr = @itemLinks[condition.id-1].camera.split(',') %>
+                <td><%= condition.camera %></td><!--- condition.id-1 -->
+                
+                <% itemLinkArr = @itemLinks[iCondition].camera.split(',') %>
                 <% nLink = itemLinkArr[0].to_i %>
                 <% nLink.times do |i| %>
                   <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
@@ -30,7 +33,7 @@
                 <tr>
                   <td>レンズ</td>
                   <td><%= condition.lens %></td>
-                  <% itemLinkArr = @itemLinks[condition.id-1].lens.split(',') %>
+                  <% itemLinkArr = @itemLinks[iCondition].lens.split(',') %>
                   <% nLink = itemLinkArr[0].to_i %>
                   <% nLink.times do |i| %>
                     <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
@@ -41,7 +44,7 @@
                 <tr>
                   <td>天体望遠鏡</td>
                   <td><%= condition.telescope %></td>
-                    <% itemLinkArr = @itemLinks[condition.id-1].telescope.split(',') %>
+                    <% itemLinkArr = @itemLinks[iCondition].telescope.split(',') %>
                     <% nLink = itemLinkArr[0].to_i %>
                     <% nLink.times do |i| %>
                       <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
@@ -52,7 +55,7 @@
                 <tr>
                   <td>フィルタ</td>
                   <td><%= condition.filter %></td>
-                  <% itemLinkArr = @itemLinks[condition.id-1].filter.split(',') %>
+                  <% itemLinkArr = @itemLinks[iCondition].filter.split(',') %>
                   <% nLink = itemLinkArr[0].to_i %>
                   <% nLink.times do |i| %>
                     <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
@@ -63,7 +66,7 @@
                 <tr>
                   <td>マウント</td>
                   <td><%= condition.mount %></td>
-                  <% itemLinkArr = @itemLinks[condition.id-1].mount.split(',') %>
+                  <% itemLinkArr = @itemLinks[iCondition].mount.split(',') %>
                   <% nLink = itemLinkArr[0].to_i %>
                   <% nLink.times do |i| %>
                     <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
@@ -74,7 +77,7 @@
                 <tr>
                   <td>三脚</td>
                   <td><%= condition.tripod %></td>
-                  <% itemLinkArr = @itemLinks[condition.id-1].tripod.split(',') %>
+                  <% itemLinkArr = @itemLinks[iCondition].tripod.split(',') %>
                   <% nLink = itemLinkArr[0].to_i %>
                   <% nLink.times do |i| %>
                     <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>

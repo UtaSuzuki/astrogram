@@ -6,8 +6,10 @@ class User < ApplicationRecord
   
   has_secure_password
   
-  has_many :events
-  has_many :conditions
+  has_many :conditions, dependent: :destroy
+  has_many :events, dependent: :destroy
+  has_many :participants, dependent: :destroy
+  has_many :participant_events, through: :participants, source: 'event'
   has_one  :card, dependent: :destroy
-  has_many :orders
+  has_many :orders, dependent: :destroy
 end

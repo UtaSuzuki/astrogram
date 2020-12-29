@@ -13,7 +13,7 @@ module ItemScrapesConcern
     item = item.tr(" 　", "++")  # 半角/全角スペースを"+"に置換
     # 検索文字の日本語対応 : URI.encode
     # スクレイピング先 (Google検索エンジン)
-    url = 'https://www.google.com/search?q=' + targetECsites + '+' + item
+    url = 'https://www.google.com/search?q=' + item
     if url =~ /(?:\p{Hiragana}|\p{Katakana}|[一-龠々])/ then
       url = URI.encode url
     end

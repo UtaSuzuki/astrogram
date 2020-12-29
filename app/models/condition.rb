@@ -4,6 +4,6 @@ class Condition < ApplicationRecord
   validates :camera, presence: true
   
   belongs_to :user
-  has_many :photos
-  has_one :itemLink
+  has_many :photos, dependent: :destroy
+  has_one :itemLink, dependent: :destroy
 end

@@ -29,6 +29,10 @@ class PhotosController < ApplicationController
     @itemLink  = ItemLink.find_by(condition_id: @condition.id)
   end
   
+  def user_index
+    @photos = Condition.joins(:photos).select("photos.id, conditions.user_id, photos.title, photos.image").where(user_id: current_user.id)
+  end
+  
   private
   def photo_params
     params.require(:photo).permit(:condition_id, :title, :image, :date, :time, :location, :description, :price)

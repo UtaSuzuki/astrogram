@@ -12,6 +12,12 @@ class CardsController < ApplicationController
   def create    # payjpとCardのデータベース作成
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     
+    @card = Card.find_by(user_id: current_user.id)
+    if @card.present?
+      destroy 
+    end
+      
+    
     if params['payjp-token'].blank?    # payjp-tokenが空ならnewする
       flash.now[:danger] = "クレジットカードを登録できませんでした。入力値を確認してください。"
       render :new

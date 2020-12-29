@@ -23,6 +23,10 @@ class EventsController < ApplicationController
     @author = User.find(@event.user_id).name
   end
   
+  def user_index
+    @events = Event.where(user_id: current_user.id)
+  end
+  
   private
   def event_params
     params.require(:event).permit(:title, :image, :date, :start_time, :end_time, :location, :deadline, :accept_number, :description)

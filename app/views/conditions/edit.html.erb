@@ -1,0 +1,55 @@
+<div class="condition-edit-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1 class="text-center">撮影条件の編集</h1>
+        <%= form_for @condition do |f| %>
+          <!-- タイトル入力 -->
+          <div class="form-group">
+            <%= f.label :title, "タイトル (必須)" %>
+            <%= f.text_field :title, value: @condition.title %>
+          </div>
+          <!-- カメラ入力 -->
+          <div class="form-group">
+            <%= f.label :camera, "カメラ（必須）" %>
+            <%= f.text_field :camera, value: @condition.camera %>
+          </div>
+          <!-- レンズ入力 -->
+          <div class="form-group">
+            <%= f.label :lens, "レンズ" %>
+            <%= f.text_field :lens, value: @condition.lens %>
+          </div>
+          <!-- 望遠鏡入力 -->
+          <div class="form-group">
+            <%= f.label :telescope, "天体望遠鏡" %>
+            <%= f.text_field :telescope, value: @condition.telescope %>
+          </div>
+          <!-- フィルター入力 -->
+          <div class="form-group">
+            <%= f.label :filter, "フィルター" %>
+            <%= f.text_field :filter, value: @condition.filter %>
+          </div>
+          <!-- マウント入力 -->
+          <div class="form-group">
+            <%= f.label :mount, "マウント" %>
+            <%= f.text_field :mount, value: @condition.mount %>
+          </div>
+          <!-- 三脚入力 -->
+          <div class="form-group">
+            <%= f.label :tripod, "三脚" %>
+            <%= f.text_field :tripod, value: @condition.tripod %>
+          </div>
+          <!-- 備考入力 -->
+          <div class="form-group">
+            <%= f.label :description, "備考" %>
+            <%= f.text_area :description, value: @condition.description %>
+          </div>
+          <!-- 更新ボタン -->
+          <%= f.submit "更新", class: 'btn btn-black btn-block' %>
+          <!-- 削除ボタン -->
+          <%= link_to "削除", condition_path(@condition.id), method: :delete, class: 'btn btn-black btn-block' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

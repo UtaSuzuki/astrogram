@@ -17,8 +17,28 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
   end
   
+  def edit
+    @user = User.find(current_user.id)
+  end
+  
+  def update
+    user = User.find(current_user.id)
+    
+    if user.authenticate(authenticate_params[:password_old]) && user.update(user_params)
+      redirect_to user_path, success: "ユーザ情報を更新しました"
+    else
+      flash.now[:danger] = "ユーザ情報の更新に失敗しました"
+      render :show
+    end
+    
+  end
+  
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :kind)
+  end
+  
+  def authenticate_params
+    params.require(:user).permit(:password_old)
   end
 end

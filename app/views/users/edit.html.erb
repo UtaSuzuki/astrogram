@@ -1,0 +1,61 @@
+<div class="users-update-wrapper">
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-md-offset-4 col-md-4 users-update-container">
+        <h1 class="text-center text-black">アカウントの編集</h1>
+        <%= form_for @user do |f| %>
+          <!-- 現在のパスワード -->
+          <div class="form-group">
+            <%= f.label :password_old, "現在のパスワード(必須)", class: "text-black" %>
+            <%= f.password_field :password_old, class: "form_control" %>
+          </div>
+          <!-- 名前 -->
+          <div class="form-group">
+            <%= f.label :name, "名前", class: "text-black" %>
+            <%= f.text_field :name, class: "form-control", value: @user.name %>
+          </div>
+          <!-- メールアドレス -->
+          <div class="form-group">
+            <%= f.label :email, "メールアドレス", class: "text-black" %>
+            <%= f.text_field :email, class: "form-control", value: @user.email %>
+          </div>
+          <!-- 新規パスワード -->
+          <div class="form-group">
+            <%= f.label :password, "新しいパスワード", class: "text-black" %>
+            <%= f.password_field :password, class: "form-control" %>
+          </div>
+          <!-- パスワード確認入力 -->
+          <div class="form-group">
+            <%= f.label :password_confirmation, "新しいパスワード(確認)", class: "text-black" %>
+            <%= f.password_field :password_confirmation, class: "form-control" %>
+          </div>
+          <!-- ユーザ種別選択 -->
+          <div class="form-group">
+            <%= f.label "ユーザの種類", class: "text-black" %>
+              <label class="btn btn-outline-secondary active" style="width:30%">
+                <% if create_user? %>
+                  <%= f.radio_button :kind, "normal" %>
+                <% else %>
+                  <%= f.radio_button :kind, "normal", checked: true %>
+                <% end %>
+                <%= f.label :kind, "一般", {value: "nomal", style: "desplay: inline-block; color: #000;"} %>
+              </label>
+              <label class="btn btn-outline-secondary active" style="width:30%">
+                <% if create_user? %>
+                  <%= f.radio_button :kind, "creater", checked: true %>
+                <% else %>
+                  <%= f.radio_button :kind, "creater" %>
+                <% end %>
+                <%= f.label :kind, "クリエータ", {value: "creater", style: "desplay: inline-block; color: #000;"} %>
+              </label>
+          </div>
+          <!-- 登録ボタン -->
+          <%= f.submit "更新", class: "btn-block btn-black" %>
+        <% end %>
+      </div>
+    </div>
+    <%= link_to "クレジットカードの変更", card_path, class: "btn btn-black btn-block" %>
+    
+  </div>
+</div>
