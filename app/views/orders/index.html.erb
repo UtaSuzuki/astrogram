@@ -14,7 +14,7 @@
               </h3>
               <!-- 投稿者 -->
               <p class="photo-author">
-                <%= @authors[purchase.user_id-1].name %>
+                <%= @authors.find(purchase.user_id).name %>
               </p>
               <!-- 画像 -->
               <%= image_tag '/uploads/photo/image/' + purchase.photo_id.to_s + '/' + purchase.image %>
