@@ -13,6 +13,7 @@
           <%= link_to "投稿イベント一覧", user_index_event_path, class: "btn btn-black btn-block" %>
           <%= link_to "販売履歴", sales_index_order_path, class: "btn btn-black btn-block" %>
         <% end %>
+        <%= link_to "アカウント削除", user_path, method: :delete, class: "btn btn-black btn-block destroy-user" %>
       </div>
     </div>
     

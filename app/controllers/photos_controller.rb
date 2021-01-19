@@ -18,19 +18,16 @@ class PhotosController < ApplicationController
   end
   
   def index
-    @photos = Photo.all
-    @autors = User.joins(conditions: :photos).pluck("name")
+    @photos = Photo.includes(condition: :user)
   end
   
   def show
-    @photo = Photo.find(params[:id])
-    @author = User.joins(conditions: :photos).pluck("name")[@photo.id-1]
-    @condition = Condition.find(@photo.condition_id)
-    @itemLink  = ItemLink.find_by(condition_id: @condition.id)
+    @photo = Photo.includes(condition: :user).find(params[:id])
+    @itemLink  = ItemLink.find_by(condition_id: @photo.condition.id)
   end
   
   def user_index
-    @photos = Condition.joins(:photos).select("photos.id, conditions.user_id, photos.title, photos.image").where(user_id: current_user.id)
+    @photos = Photo.includes(condition: :user).where(users: {id: current_user.id})
   end
   
   private

@@ -17,8 +17,12 @@
           <%= link_to photo_path(photo.id) do %>
             <div class="photo-index-single">
               <!-- 投稿者 -->
-              <h2 class="photo-author">
-                <%= @autors[photo.id-1] %>
+              <h5 class="photo-author">
+                <%= photo.condition.user.name %>
+              </h5>
+              <!-- タイトル -->
+              <h2 class="photo-title">
+                <%= photo.title %>
               </h2>
               <!-- 画像 -->
               <%= image_tag photo.image.url %>

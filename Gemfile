@@ -49,6 +49,9 @@ group :development, :test do
   gem 'pry-stack_explorer'
   
   gem 'dotenv-rails'
+  
+  gem 'hirb'
+  gem 'hirb-unicode'
 end
 
 group :development do

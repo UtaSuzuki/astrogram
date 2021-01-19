@@ -33,6 +33,16 @@ class UsersController < ApplicationController
     
   end
   
+  def destroy
+    @user = User.find(current_user.id)
+    if @user.destroy
+      redirect_to root_path, success: "アカウントを削除しました"
+    else
+      flash.now[:danger] = "アカウントの削除に失敗しました"
+      render :show
+    end
+  end
+  
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :kind)

@@ -21,7 +21,7 @@
                 <%= photo.title %>
               </h2>
               <!-- 画像 -->
-              <%= image_tag '/uploads/photo/image/' + photo.id.to_s + '/' + photo.image %>
+              <%= image_tag photo.image.url %>
               <!-- いいね -->
               <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
               <!-- コメント -->
