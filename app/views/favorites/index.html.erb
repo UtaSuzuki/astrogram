@@ -1,0 +1,22 @@
+<div class="photo-index-wrapper">
+  <div class="container">
+    <% @favorite_photos.each do |photo| %>
+      <div class="row">
+        <div class="col-dm-6 col-md-offset-3">
+          <div class="photo-index-single">
+            <!-- 投稿者 -->
+            <h2 class="photo-author">
+              <%= photo.condition.user.name %>
+            </h2>
+            <!-- 画像 -->
+            <%= image_tag photo.image.url %>
+            <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
+            <p class="photo-text">
+              <%= photo.description %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

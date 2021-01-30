@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_29_012934) do
+ActiveRecord::Schema.define(version: 2021_01_30_085441) do
 
   create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(version: 2020_12_29_012934) do
     t.integer "accept_number"
     t.text "description"
     t.boolean "recruit_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "photo_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

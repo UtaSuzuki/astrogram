@@ -9,6 +9,8 @@ class Photo < ApplicationRecord
   
   belongs_to :condition
   has_many :orders, dependent: :destroy
+  has_many :favorites
+  has_many :favorite_users, through: :favorites, source: 'user'
   
   mount_uploader :image, ImageUploader
 end

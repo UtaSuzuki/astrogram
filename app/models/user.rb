@@ -12,4 +12,6 @@ class User < ApplicationRecord
   has_many :participant_events, through: :participants, source: 'event'
   has_one  :card, dependent: :destroy
   has_many :orders, dependent: :destroy
+  has_many :favorites
+  has_many :favorite_photos, through: :favorites, source: 'photo'
 end

@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   post   '/participants', to: 'participants#create'
   delete '/participants', to: 'participants#destroy'
   
+  get    'favorites/index'
+  post   '/favorites', to: 'favorites#create'
+  delete '/favorites', to: 'favorites#destroy'
+  
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :events do
     member do

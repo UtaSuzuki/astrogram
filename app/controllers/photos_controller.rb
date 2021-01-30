@@ -18,7 +18,7 @@ class PhotosController < ApplicationController
   end
   
   def index
-    @photos = Photo.includes(condition: :user)
+    @photos = Photo.includes([:favorite_users, condition: :user])
   end
   
   def show

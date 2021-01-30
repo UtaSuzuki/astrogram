@@ -14,7 +14,6 @@
     <% @photos.each do |photo| %>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-          <%= link_to photo_path(photo.id) do %>
             <div class="photo-index-single">
               <!-- 投稿者 -->
               <h5 class="photo-author">
@@ -25,17 +24,31 @@
                 <%= photo.title %>
               </h2>
               <!-- 画像 -->
-              <%= image_tag photo.image.url %>
-              <!-- いいね -->
-              <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
-              <!-- コメント -->
-              <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
+              <%= link_to photo_path(photo.id) do %>
+                <%= image_tag photo.image.url %>
+              <% end %>
+              <!-- ログイン中のみ表示 -->
+              <% if logged_in? %>
+                <!-- いいね　-->
+                <% if photo.favorite_users.include?(current_user) %>
+                  <!-- いいね済のとき -->
+                  <%= link_to favorites_path(photo_id: photo.id, redirect_flg: 0), method: :delete do %>
+                    <%= image_tag 'icons/heart.png', class: 'photo-favorited-icon' %>
+                  <% end %>
+                <% else %>
+                  <!-- いいね未のとき -->
+                  <%= link_to favorites_path(photo_id: photo.id, redirect_flg: 0), method: :post do %>
+                    <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
+                  <% end %>
+                <% end %>
+                <!-- コメント -->
+                <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
+              <% end %>
               <!-- 説明 -->
               <p class="photo-text">
                 <%= photo.description %>
               </p>
             </div>
-          <% end %>
         </div>
       </div>
     <% end %>

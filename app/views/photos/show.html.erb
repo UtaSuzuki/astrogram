@@ -3,13 +3,29 @@
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div class="photo-show-single">
+          <!-- 投稿者 -->
           <h3 class="photo-author">
             <%= @photo.condition.user.name %>
           </h3>
+          <!-- タイトル -->
           <h2>
             「<%= @photo.title %>」
           </h2>
+          <!-- 画像 -->
           <%= image_tag @photo.image.url %>
+          <!-- いいね -->
+          <% if @photo.favorite_users.include?(current_user) %>
+            <!-- いいね済のとき -->
+            <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :delete do %>
+              <%= image_tag 'icons/heart.png', class: 'photo-favorited-icon' %>
+            <% end %>
+          <% else %>
+            <!-- いいね未のとき -->
+            <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :post do %>
+              <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
+            <% end %>
+          <% end %>
+          <!-- 撮影情報 -->
           <h3>撮影情報</h3>
           <table class="photo-table">
             <% if !@photo.date.nil? %>
@@ -24,6 +40,7 @@
               <td><%= @photo.location %></td>
             </tr>
           </table>
+          <!-- 撮影機材 -->
           <h3>撮影機材</h3>
           <table class="photo-table">
             <tr>
@@ -91,6 +108,7 @@
             </tr>
             <% end %>
           </table>
+          <!-- 価格 -->
           <h3>価格</h3>
           <p class="photo-text">
             <%= @photo.price %>円
@@ -104,6 +122,7 @@
               <% end %>
             </span>
           </p>
+          <!-- 備考 -->
           <p class="photo-text">
             <%= @photo.description %>
           </p>
