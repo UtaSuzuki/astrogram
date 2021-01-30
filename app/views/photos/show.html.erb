@@ -25,6 +25,12 @@
               <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
             <% end %>
           <% end %>
+          <!-- いいねカウント -->
+          <%= @photo.favorites.count %>
+          <!-- コメントアイコン -->
+          <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
+          <!-- コメントカウント -->
+          <%= @photo.photo_comments.count %>
           <!-- 撮影情報 -->
           <h3>撮影情報</h3>
           <table class="photo-table">
@@ -126,6 +132,29 @@
           <p class="photo-text">
             <%= @photo.description %>
           </p>
+          <!-- コメント表示 -->
+          <h3 class="comment-titile">
+            コメント
+          </h3>
+          <% if @comments.exists?(photo_id: @photo.id) %>
+            <div class="section-comment">
+              <% @comments.each do |comment| %>
+                <div class="comment-user">
+                  <%= comment.user.name + ' >' %>
+                </div>
+                <div class="comment-content">
+                  <%= comment.message %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+          <!-- コメント入力 -->
+          <%= form_for [@photo, @comment] do |f| %>
+            <div class="form-group">
+              <%= f.text_area :message, class: 'form-control' %>
+            </div>
+            <%= f.submit '送信', class: 'btn btn-black btn-block' %>
+          <% end %>
         </div>
       </div>
     </div>

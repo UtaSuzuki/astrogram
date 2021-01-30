@@ -19,11 +19,14 @@ class PhotosController < ApplicationController
   
   def index
     @photos = Photo.includes([:favorite_users, condition: :user])
+    @comments = PhotoComment.all
   end
   
   def show
     @photo = Photo.includes(condition: :user).find(params[:id])
     @itemLink  = ItemLink.find_by(condition_id: @photo.condition.id)
+    @comments = @photo.photo_comments
+    @comment = PhotoComment.new
   end
   
   def user_index

@@ -14,41 +14,47 @@
     <% @photos.each do |photo| %>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <div class="photo-index-single">
-              <!-- 投稿者 -->
-              <h5 class="photo-author">
-                <%= photo.condition.user.name %>
-              </h5>
+          <div class="photo-index-single">
+            <!-- 投稿者 -->
+            <h5 class="photo-author">
+              <%= photo.condition.user.name %>
+            </h5>
+            <%= link_to photo_path(photo.id) do %>
               <!-- タイトル -->
               <h2 class="photo-title">
                 <%= photo.title %>
               </h2>
               <!-- 画像 -->
-              <%= link_to photo_path(photo.id) do %>
-                <%= image_tag photo.image.url %>
-              <% end %>
-              <!-- ログイン中のみ表示 -->
-              <% if logged_in? %>
-                <!-- いいね　-->
-                <% if photo.favorite_users.include?(current_user) %>
-                  <!-- いいね済のとき -->
-                  <%= link_to favorites_path(photo_id: photo.id, redirect_flg: 0), method: :delete do %>
-                    <%= image_tag 'icons/heart.png', class: 'photo-favorited-icon' %>
-                  <% end %>
-                <% else %>
-                  <!-- いいね未のとき -->
-                  <%= link_to favorites_path(photo_id: photo.id, redirect_flg: 0), method: :post do %>
-                    <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
-                  <% end %>
+              <%= image_tag photo.image.url %>
+            <% end %>
+            <!-- ログイン中のみ表示 -->
+            <% if logged_in? %>
+              <!-- いいね　-->
+              <% if photo.favorite_users.include?(current_user) %>
+                <!-- いいね済のとき -->
+                <%= link_to favorites_path(photo_id: photo.id, redirect_flg: 0), method: :delete do %>
+                  <%= image_tag 'icons/heart.png', class: 'photo-favorited-icon' %>
                 <% end %>
-                <!-- コメント -->
+              <% else %>
+                <!-- いいね未のとき -->
+                <%= link_to favorites_path(photo_id: photo.id, redirect_flg: 0), method: :post do %>
+                  <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
+                <% end %>
+              <% end %>
+              <!-- いいねカウント -->
+              <%= photo.favorites.count %>
+              <!-- コメントアイコン -->
+              <%= link_to photo_path(photo.id) do %>
                 <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
               <% end %>
-              <!-- 説明 -->
-              <p class="photo-text">
-                <%= photo.description %>
-              </p>
-            </div>
+              <!-- コメントカウント -->
+              <%= photo.photo_comments.count %>
+            <% end %>
+            <!-- 説明 -->
+            <p class="photo-text">
+              <%= photo.description %>
+            </p>
+          </div>
         </div>
       </div>
     <% end %>

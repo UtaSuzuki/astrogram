@@ -11,6 +11,8 @@ class Photo < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :favorites
   has_many :favorite_users, through: :favorites, source: 'user'
+  has_many :photo_comments
+  has_many :photo_comment_users, through: :photo_comments, source: 'user'
   
   mount_uploader :image, ImageUploader
 end

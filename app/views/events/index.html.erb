@@ -14,33 +14,45 @@
     <% @events.each do |event| %>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-          <%= link_to event_path(event.id) do %>
-            <div class="event-index-single">
-              <!-- 投稿者 -->
-              <h5 class="event-author">
-                <%= event.user.name %>
-              </h5>
+          <div class="event-index-single">
+            <!-- 投稿者 -->
+            <h5 class="event-author">
+              <%= event.user.name %>
+            </h5>
+            <%= link_to event_path(event.id) do %>
+              <!-- タイトル -->
               <h2 class="event-title">
                 <%= event.title %>
               </h2>
+              <!-- 画像 -->
               <%= image_tag event.image.url %>
-              <%= image_tag 'icons/comment.png', class: 'event-index-icon' %>
-              <table class="event-table">
-                <tr>
-                  <td>開催日時</td>
-                  <td><%= event.date.year %>/<%= event.date.month %>/<%= event.date.day %></td>
-                  <td><%= event.start_time.hour %>:<%= event.start_time.min %></td>
-                </tr>
-                <tr>
-                  <td>開催地</td>
-                  <td><%= event.location %></td>
-                </tr>
-              </table>
-              <p class="event-text">
-                <%= event.description %>
-              </p>
-            </div>
-          <% end %>
+            <% end %>
+            <!-- ログイン中のみ表示 -->
+            <% if logged_in? %>
+              <!-- コメントアイコン -->
+              <%= link_to event_path(event.id) do %>
+                <%= image_tag 'icons/comment.png', class: 'event-index-icon' %>
+              <% end %>
+              <!-- コメントカウント -->
+              <%= event.event_comments.count %>
+            <% end %>
+            <!-- 詳細情報 -->
+            <table class="event-table">
+              <tr>
+                <td>開催日時</td>
+                <td><%= event.date.year %>/<%= event.date.month %>/<%= event.date.day %></td>
+                <td><%= event.start_time.hour %>:<%= event.start_time.min %></td>
+              </tr>
+              <tr>
+                <td>開催地</td>
+                <td><%= event.location %></td>
+              </tr>
+            </table>
+            <!-- 説明 -->
+            <p class="event-text">
+              <%= event.description %>
+            </p>
+          </div>
         </div>
       </div>
     <% end %>

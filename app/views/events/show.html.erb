@@ -3,13 +3,21 @@
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div class="event-show-single">
+          <!-- 投稿者 -->
           <h3 class="event-author">
             <%= @author %>
           </h3>
+          <!-- タイトル -->
           <h2>
             「<%= @event.title %>」
           </h2>
+          <!-- 画像 -->
           <%= image_tag @event.image.url %>
+          <!-- コメントアイコン -->
+          <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
+          <!-- コメントカウント -->
+          <%= @event.event_comments.count %>
+          <!-- 詳細情報 -->
           <h3>イベント情報</h3>
           <table class="event-table">
             <tr>
@@ -42,6 +50,7 @@
               <% end %>
             <% end %>
           </table>
+          <!-- 参加登録 -->
           <p class="event-text">
             <% if @event.recruit_status then %>
               <% if logged_in? %>
@@ -57,6 +66,29 @@
               参加受付が終了しています。
             <% end %>
           </p>
+          <!-- コメント表示 -->
+          <h3 class="comment-titile">
+            コメント
+          </h3>
+          <% if @comments.exists?(event_id: @event.id) %>
+            <div class="section-comment">
+              <% @comments.each do |comment| %>
+                <div class="comment-user">
+                  <%= comment.user.name + ' >' %>
+                </div>
+                <div class="comment-content">
+                  <%= comment.message %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+          <!-- コメント入力 -->
+          <%= form_for [@event, @comment] do |f| %>
+            <div class="form-group">
+              <%= f.text_area :message, class: 'form-control' %>
+            </div>
+            <%= f.submit '送信', class: 'btn btn-black btn-block' %>
+          <% end %>
         </div>
       </div>
     </div>

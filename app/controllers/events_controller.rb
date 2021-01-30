@@ -16,11 +16,14 @@ class EventsController < ApplicationController
   
   def index
     @events = Event.includes(:user)
+    @comments = EventComment.all
   end
   
   def show
     @event = Event.find(params[:id])
     @author = User.find(@event.user_id).name
+    @comments = @event.event_comments
+    @comment = EventComment.new
   end
   
   def user_index

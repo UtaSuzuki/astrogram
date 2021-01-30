@@ -14,4 +14,8 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :favorites
   has_many :favorite_photos, through: :favorites, source: 'photo'
+  has_many :photo_comments
+  has_many :photo_comments_photos, through: :photo_comments, source: 'photo'
+  has_many :event_comments
+  has_many :event_comments_events, through: :evnet_comments, source: 'event'
 end
