@@ -59,8 +59,6 @@
                 <% else %>
                   <%= link_to "参加", participants_path(event_id: @event.id), method: :post, class: "btn btn-block btn-black" %>
                 <% end %>
-              <% else %>
-                <%= link_to "参加", login_path, class: "btn btn-black btn-block" %>
               <% end %>
             <% else %>
               参加受付が終了しています。
@@ -83,11 +81,13 @@
             </div>
           <% end %>
           <!-- コメント入力 -->
-          <%= form_for [@event, @comment] do |f| %>
-            <div class="form-group">
-              <%= f.text_area :message, class: 'form-control' %>
-            </div>
-            <%= f.submit '送信', class: 'btn btn-black btn-block' %>
+          <% if logged_in? %>
+            <%= form_for [@event, @comment] do |f| %>
+              <div class="form-group">
+                <%= f.text_area :message, class: 'form-control' %>
+              </div>
+              <%= f.submit '送信', class: 'btn btn-black btn-block' %>
+            <% end %>
           <% end %>
         </div>
       </div>

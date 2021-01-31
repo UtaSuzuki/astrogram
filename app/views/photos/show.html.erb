@@ -14,16 +14,21 @@
           <!-- 画像 -->
           <%= image_tag @photo.image.url %>
           <!-- いいね -->
-          <% if @photo.favorite_users.include?(current_user) %>
-            <!-- いいね済のとき -->
-            <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :delete do %>
-              <%= image_tag 'icons/heart.png', class: 'photo-favorited-icon' %>
+          <!-- ログイン中のみいいね可能 -->
+          <% if logged_in? %>
+            <% if @photo.favorite_users.include?(current_user) %>
+              <!-- いいね済のとき -->
+              <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :delete do %>
+                <%= image_tag 'icons/heart.png', class: 'photo-favorited-icon' %>
+              <% end %>
+            <% else %>
+              <!-- いいね未のとき -->
+              <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :post do %>
+                <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
+              <% end %>
             <% end %>
           <% else %>
-            <!-- いいね未のとき -->
-            <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :post do %>
-              <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
-            <% end %>
+            <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
           <% end %>
           <!-- いいねカウント -->
           <%= @photo.favorites.count %>
@@ -118,16 +123,12 @@
           <h3>価格</h3>
           <p class="photo-text">
             <%= @photo.price %>円
-            <span>
-              <% if logged_in? %>
-                <% if @photo.condition.user_id != current_user.id %>
-                  <%= link_to "購入", new_order_path(id: @photo.id), class: "btn btn-black btn-block" %>
-                <% end %>
-              <% else %>
-                <%= link_to "ログインして購入", login_path, class: "btn btn-black btn-block" %>
-              <% end %>
-            </span>
           </p>
+          <% if logged_in? %>
+            <% if @photo.condition.user_id != current_user.id %>
+              <%= link_to "購入", new_order_path(id: @photo.id), class: "btn btn-black btn-block" %>
+            <% end %>
+          <% end %>
           <!-- 備考 -->
           <p class="photo-text">
             <%= @photo.description %>
@@ -149,11 +150,13 @@
             </div>
           <% end %>
           <!-- コメント入力 -->
-          <%= form_for [@photo, @comment] do |f| %>
-            <div class="form-group">
-              <%= f.text_area :message, class: 'form-control' %>
-            </div>
-            <%= f.submit '送信', class: 'btn btn-black btn-block' %>
+          <% if logged_in? %>
+            <%= form_for [@photo, @comment] do |f| %>
+              <div class="form-group">
+                <%= f.text_area :message, class: 'form-control' %>
+              </div>
+              <%= f.submit '送信', class: 'btn btn-black btn-block' %>
+            <% end %>
           <% end %>
         </div>
       </div>

@@ -60,6 +60,15 @@
               <% end %>
               <!-- コメントカウント -->
               <%= photo.photo_comments.count %>
+            <% else %>
+              <!-- いいねアイコン -->
+              <%= image_tag 'icons/heart.png', class: 'photo-favorited-icon' %>
+              <!-- いいねカウント -->
+              <%= photo.favorites.count %>
+              <!-- コメントアイコン -->
+              <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
+              <!-- コメントカウント -->
+              <%= photo.photo_comments.count %>
             <% end %>
             <!-- 説明 -->
             <p class="photo-text">
