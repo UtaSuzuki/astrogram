@@ -18,4 +18,24 @@ class User < ApplicationRecord
   has_many :photo_comments_photos, through: :photo_comments, source: 'photo'
   has_many :event_comments
   has_many :event_comments_events, through: :evnet_comments, source: 'event'
+  has_many :relationships
+  has_many :follower, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy  # フォロー取得
+  has_many :followed, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy  # フォロワー取得
+  has_many :following_user, through: :follower, source: :followed    # 自分がフォローしている人
+  has_many :follower_user,  through: :followed, source: :follower    # 自分をフォローしている人
+  
+  # ユーザをフォローする
+  def follow(user_id)
+    follower.create(followed_id: user_id)
+  end
+  
+  # ユーザのフォローを外す
+  def unfollow(user_id)
+    follower.find_by(followed_id: user_id).destroy
+  end
+  
+  # フォローしていればtrueを返す
+  def following?(user)
+    following_user.include?(user)
+  end
 end

@@ -22,6 +22,11 @@ Rails.application.routes.draw do
   post   '/event_comments',  to: 'event_comments#create'
   delete '/event_comments',  to: 'event_comments#destroy'
   
+  get    'following/:id' => 'relationships#index_following', as: 'index_following'    # フォロー一覧
+  get    'follower/:id'  => 'relationships#index_follower',  as: 'index_follower'     # フォロワー一覧
+  post   'follow/:id'   => 'relationships#follow',   as: 'follow'    # フォローする
+  post   'unfollow/:id' => 'relationships#unfollow', as: 'unfollow'  # フォローを外す
+  
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :events do
     member do

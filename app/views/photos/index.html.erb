@@ -17,8 +17,19 @@
           <div class="photo-index-single">
             <!-- 投稿者 -->
             <h5 class="photo-author">
-              <%= photo.condition.user.name %>
+              <%= "#{photo.condition.user.name} (id=#{photo.condition.user.id})" %>
             </h5>
+            <!-- フォロー機能 -->
+            <% if logged_in? %>
+              <% unless photo.condition.user == current_user %>
+                <% if current_user.following?(photo.condition.user) %>
+                  <%= link_to 'フォロー解除', unfollow_path(photo.condition.user.id), method: :post %>
+                <% else %>
+                  <%= link_to 'フォロー', follow_path(photo.condition.user.id), method: :post %>
+                <% end %>
+              <% end %>
+            <% end %>
+            <!-- 画像詳細ページへのリンク -->
             <%= link_to photo_path(photo.id) do %>
               <!-- タイトル -->
               <h2 class="photo-title">
