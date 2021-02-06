@@ -1,164 +1,203 @@
 <div class="photo-show-wrapper">
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="photo-show-single">
-          <!-- 投稿者 -->
-          <h3 class="photo-author">
-            <%= @photo.condition.user.name %>
-          </h3>
-          <!-- タイトル -->
-          <h2>
-            「<%= @photo.title %>」
-          </h2>
-          <!-- 画像 -->
-          <%= image_tag @photo.image.url %>
-          <!-- いいね -->
-          <!-- ログイン中のみいいね可能 -->
-          <% if logged_in? %>
-            <% if @photo.favorite_users.include?(current_user) %>
-              <!-- いいね済のとき -->
-              <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :delete do %>
-                <%= image_tag 'icons/heart.png', class: 'photo-favorited-icon' %>
-              <% end %>
-            <% else %>
-              <!-- いいね未のとき -->
-              <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :post do %>
-                <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
-              <% end %>
+    <div class="col-md-8 col-md-offset-2">
+      <!-- 画像 -->
+      <%= image_tag @photo.image.url %>
+      <!-- タイトル -->
+      <div class="text-center">
+        <p class="photo-show-title">
+          <%= @photo.title %>
+        </p>
+      </div>
+      <!-- 各種アイコン -->
+      <div class="text-center">
+        <!-- いいね -->
+        <!-- ログイン中のみいいね可能 -->
+        <% if logged_in? %>
+          <% if @photo.favorite_users.include?(current_user) %>
+            <!-- いいね済のとき -->
+            <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :delete do %>
+              <%= image_tag 'icons/heart.png', class: 'photo-favorited-icon' %>
             <% end %>
           <% else %>
-            <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
+            <!-- いいね未のとき -->
+            <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :post do %>
+              <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
+            <% end %>
           <% end %>
-          <!-- いいねカウント -->
-          <%= @photo.favorites.count %>
-          <!-- コメントアイコン -->
-          <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
-          <!-- コメントカウント -->
-          <%= @photo.photo_comments.count %>
-          <!-- 撮影情報 -->
-          <h3>撮影情報</h3>
-          <table class="photo-table">
-            <% if !@photo.date.nil? %>
-              <tr>
-                <td>撮影日時</td>
-                <td><%= @photo.date.strftime('%Y/%m/%d') %></td>
-                <td><%= @photo.time.strftime('%H:%M') %></td>
-              </tr>
+        <% else %>
+          <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
+        <% end %>
+        <!-- いいねカウント -->
+        <%= @photo.favorites.count %>
+        <!-- コメントアイコン -->
+        <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
+        <!-- コメントカウント -->
+        <%= @photo.photo_comments.count %>
+      </div>
+      <!-- 投稿者 -->
+      <h3 class="photo-show-item">
+        作者
+      </h3>
+      <p class="photo-show-text">
+        <%= @photo.condition.user.name %>
+        <!-- フォロー機能 -->
+        <span class="photo-show-follow">
+          <% if logged_in? %>
+            <% unless @photo.condition.user == current_user %>
+              <% if current_user.following?(@photo.condition.user) %>
+                <%= link_to 'フォロー解除', unfollow_path(@photo.condition.user.id), method: :post %>
+              <% else %>
+                <%= link_to 'フォロー', follow_path(@photo.condition.user.id), method: :post %>
+              <% end %>
             <% end %>
-            <tr>
-              <td>撮影地</td>
-              <td><%= @photo.location %></td>
-            </tr>
-          </table>
-          <!-- 撮影機材 -->
-          <h3>撮影機材</h3>
-          <table class="photo-table">
-            <tr>
-              <td>カメラ</td>
-              <td><%= @photo.condition.camera %></td>
-                <% itemLinkArr = @itemLink.camera.split(',') %>
-                <% nLink = itemLinkArr[0].to_i %>
-                <% nLink.times do |i| %>
-                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
-                <% end %>
-            </tr>
-            <% if !@photo.condition.lens.empty? then %>
-            <tr>
-              <td>レンズ</td>
-              <td><%= @photo.condition.lens %></td>
-                <% itemLinkArr = @itemLink.lens.split(',') %>
-                <% nLink = itemLinkArr[0].to_i %>
-                <% nLink.times do |i| %>
-                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
-                <% end %>
-            </tr>
+          <% end %>
+        </span>
+      </p>
+      <!-- 撮影情報 -->
+      <h3 class="photo-show-item">
+        撮影情報
+      </h3>
+      <table class="photo-show-table">
+        <% if !@photo.date.nil? %>
+          <tr class="row">
+            <td class="col-md-4">撮影日時</td>
+            <td class="col-md-4"><%= @photo.date.strftime('%Y/%m/%d') %></td>
+            <td class="col-md-4"><%= @photo.time.strftime('%H:%M') %></td>
+          </tr>
+        <% end %>
+        <tr class="row">
+          <td class="col-md-4">撮影地</td>
+          <td class="col-md-4"><%= @photo.location %></td>
+        </tr>
+      </table>
+      <!-- 撮影機材 -->
+      <h3 class="photo-show-item">
+        撮影機材
+      </h3>
+      <table class="photo-show-table">
+        <tr>
+          <td class="col-md-4">カメラ</td>
+          <td class="col-md-4"><%= @photo.condition.camera %></td>
+          <td class="col-md-4">
+            <% itemLinkArr = @itemLink.camera.split(',') %>
+            <% nLink = itemLinkArr[0].to_i %>
+            <% nLink.times do |i| %>
+              <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
             <% end %>
-            <% if !@photo.condition.telescope.empty? then %>
-            <tr>
-              <td>天体望遠鏡</td>
-              <td><%= @photo.condition.telescope %></td>
-                <% itemLinkArr = @itemLink.telescope.split(',') %>
-                <% nLink = itemLinkArr[0].to_i %>
-                <% nLink.times do |i| %>
-                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
-                <% end %>
-            </tr>
+          </td>
+        </tr>
+        <% if !@photo.condition.lens.empty? then %>
+        <tr>
+          <td class="col-md-4">レンズ</td>
+          <td class="col-md-4"><%= @photo.condition.lens %></td>
+          <td class="col-md-4">
+            <% itemLinkArr = @itemLink.lens.split(',') %>
+            <% nLink = itemLinkArr[0].to_i %>
+            <% nLink.times do |i| %>
+              <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
             <% end %>
-            <% if !@photo.condition.filter.empty? then %>
-            <tr>
-              <td>フィルタ</td>
-              <td><%= @photo.condition.filter %></td>
-                <% itemLinkArr = @itemLink.filter.split(',') %>
-                <% nLink = itemLinkArr[0].to_i %>
-                <% nLink.times do |i| %>
-                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
-                <% end %>
-            </tr>
+          </td>
+        </tr>
+        <% end %>
+        <% if !@photo.condition.telescope.empty? then %>
+        <tr>
+          <td class="col-md-4">天体望遠鏡</td>
+          <td class="col-md-4"><%= @photo.condition.telescope %></td>
+          <td class="col-md-4">
+            <% itemLinkArr = @itemLink.telescope.split(',') %>
+            <% nLink = itemLinkArr[0].to_i %>
+            <% nLink.times do |i| %>
+              <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
             <% end %>
-            <% if !@photo.condition.mount.empty? then %>
-            <tr>
-              <td>マウント</td>
-              <td><%= @photo.condition.mount %></td>
-                <% itemLinkArr = @itemLink.mount.split(',') %>
-                <% nLink = itemLinkArr[0].to_i %>
-                <% nLink.times do |i| %>
-                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
-                <% end %>
-            </tr>
+          </td>
+        </tr>
+        <% end %>
+        <% if !@photo.condition.filter.empty? then %>
+        <tr>
+          <td class="col-md-4">フィルタ</td>
+          <td class="col-md-4"><%= @photo.condition.filter %></td>
+          <td class="col-md-4">
+            <% itemLinkArr = @itemLink.filter.split(',') %>
+            <% nLink = itemLinkArr[0].to_i %>
+            <% nLink.times do |i| %>
+              <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
             <% end %>
-            <% if !@photo.condition.tripod.empty? then %>
-            <tr>
-              <td>三脚</td>
-              <td><%= @photo.condition.tripod %></td>
-                <% itemLinkArr = @itemLink.tripod.split(',') %>
-                <% nLink = itemLinkArr[0].to_i %>
-                <% nLink.times do |i| %>
-                  <td><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></td>
-                <% end %>
-            </tr>
+          </td>
+        </tr>
+        <% end %>
+        <% if !@photo.condition.mount.empty? then %>
+        <tr>
+          <td class="col-md-4">マウント</td>
+          <td class="col-md-4"><%= @photo.condition.mount %></td>
+          <td class="col-md-4">
+            <% itemLinkArr = @itemLink.mount.split(',') %>
+            <% nLink = itemLinkArr[0].to_i %>
+            <% nLink.times do |i| %>
+              <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
             <% end %>
-          </table>
-          <!-- 価格 -->
-          <h3>価格</h3>
-          <p class="photo-text">
-            <%= @photo.price %>円
-          </p>
+          </td>
+        </tr>
+        <% end %>
+        <% if !@photo.condition.tripod.empty? then %>
+        <tr>
+          <td class="col-md-4">三脚</td>
+          <td class="col-md-4"><%= @photo.condition.tripod %></td>
+          <td class="col-md-4">
+            <% itemLinkArr = @itemLink.tripod.split(',') %>
+            <% nLink = itemLinkArr[0].to_i %>
+            <% nLink.times do |i| %>
+              <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+      <!-- 価格 -->
+      <h3 class="photo-show-item">
+        価格
+      </h3>
+      <p class="photo-show-text">
+        <%= @photo.price %>円
+        <span>
           <% if logged_in? %>
             <% if @photo.condition.user_id != current_user.id %>
-              <%= link_to "購入", new_order_path(id: @photo.id), class: "btn btn-black btn-block" %>
+              <%= link_to "購入", new_order_path(id: @photo.id), class: "btn btn-black photo-show-btn-block" %>
             <% end %>
           <% end %>
-          <!-- 備考 -->
-          <p class="photo-text">
-            <%= @photo.description %>
-          </p>
-          <!-- コメント表示 -->
-          <h3 class="comment-titile">
-            コメント
-          </h3>
-          <% if @comments.exists?(photo_id: @photo.id) %>
-            <div class="section-comment">
-              <% @comments.each do |comment| %>
-                <div class="comment-user">
-                  <%= comment.user.name + ' >' %>
-                </div>
-                <div class="comment-content">
-                  <%= comment.message %>
-                </div>
-              <% end %>
+        </span>
+      </p>
+      <!-- 備考 -->
+      <h3 class="photo-show-item">
+        説明
+      </h3>
+      <p class="photo-show-text">
+        <%= @photo.description %>
+      </p>
+      <!-- コメント表示 -->
+      <div class="comment-section">
+        <h3 class="comment-title">
+          コメント
+        </h3>
+        <% if @comments.exists?(photo_id: @photo.id) %>
+          <% @comments.each do |comment| %>
+            <div class="comment-user">
+              <%= comment.user.name + ' >' %>
+            </div>
+            <div class="comment-content">
+              <%= comment.message %>
             </div>
           <% end %>
-          <!-- コメント入力 -->
-          <% if logged_in? %>
-            <%= form_for [@photo, @comment] do |f| %>
-              <div class="form-group">
-                <%= f.text_area :message, class: 'form-control' %>
-              </div>
-              <%= f.submit '送信', class: 'btn btn-black btn-block' %>
-            <% end %>
+        <% end %>
+        <!-- コメント入力 -->
+        <% if logged_in? %>
+          <%= form_for [@photo, @comment] do |f| %>
+            <div class="form-group">
+              <%= f.text_area :message, class: 'form-control' %>
+            </div>
+            <%= f.submit '送信', class: 'btn btn-black btn-block' %>
           <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>

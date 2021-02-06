@@ -1,7 +1,7 @@
 <div class="photo-index-wrapper">
   <div class="container">
     <!-- トップタイトル -->
-    <h1 class="text-black text-center">写真</h1>
+    <h1 class="text-black text-center">天体写真一覧</h1>
     <!-- 新規投稿ページへのボタン -->
     <% if current_user && create_user? %>
       <div class="row">
@@ -12,34 +12,18 @@
     <% end %>
     <!-- 写真一覧 -->
     <% @photos.each do |photo| %>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+      <div class=""> <!-- <div class="row"> -->
+        <div class="col-md-3">  <!-- <div class="col-md-6 col-md-offset-3"> -->
           <div class="photo-index-single">
-            <!-- 投稿者 -->
-            <h5 class="photo-author">
-              <%= "#{photo.condition.user.name} (id=#{photo.condition.user.id})" %>
-            </h5>
-            <!-- フォロー機能 -->
-            <% if logged_in? %>
-              <% unless photo.condition.user == current_user %>
-                <% if current_user.following?(photo.condition.user) %>
-                  <%= link_to 'フォロー解除', unfollow_path(photo.condition.user.id), method: :post %>
-                <% else %>
-                  <%= link_to 'フォロー', follow_path(photo.condition.user.id), method: :post %>
-                <% end %>
-              <% end %>
-            <% end %>
             <!-- 画像詳細ページへのリンク -->
             <%= link_to photo_path(photo.id) do %>
-              <!-- タイトル -->
-              <h2 class="photo-title">
-                <%= photo.title %>
-              </h2>
               <!-- 画像 -->
               <%= image_tag photo.image.url %>
             <% end %>
-            <!-- ログイン中のみ表示 -->
+            <!-- 各種アイコン -->
+            <div class="photo-index-iconArea">
             <% if logged_in? %>
+              <!-- ログイン中の表示 -->
               <!-- いいね　-->
               <% if photo.favorite_users.include?(current_user) %>
                 <!-- いいね済のとき -->
@@ -61,8 +45,9 @@
               <!-- コメントカウント -->
               <%= photo.photo_comments.count %>
             <% else %>
+              <!-- ログオフ中の表示 -->
               <!-- いいねアイコン -->
-              <%= image_tag 'icons/heart.png', class: 'photo-favorited-icon' %>
+              <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
               <!-- いいねカウント -->
               <%= photo.favorites.count %>
               <!-- コメントアイコン -->
@@ -70,10 +55,7 @@
               <!-- コメントカウント -->
               <%= photo.photo_comments.count %>
             <% end %>
-            <!-- 説明 -->
-            <p class="photo-text">
-              <%= photo.description %>
-            </p>
+            </div>
           </div>
         </div>
       </div>
