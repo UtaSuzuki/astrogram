@@ -1,95 +1,118 @@
-<div class="event-show-wrapper">
+<div class="show-wrapper">
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="event-show-single">
-          <!-- 投稿者 -->
-          <h3 class="event-author">
-            <%= @author %>
-          </h3>
-          <!-- タイトル -->
-          <h2>
-            「<%= @event.title %>」
-          </h2>
-          <!-- 画像 -->
-          <%= image_tag @event.image.url %>
-          <!-- コメントアイコン -->
-          <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
-          <!-- コメントカウント -->
+    <div class="col-md-8 col-md-offset-2">
+      <!-- タイトル -->
+      <div class="text-center">
+        <p class="show-title">
+          <%= @event.title %>
+        </p>
+      </div>
+      <!-- 画像 -->
+      <%= image_tag @event.image.url, class: 'show-img' %>
+      <!-- 各種アイコン -->
+      <div class="text-center icon-area">
+        <!-- コメント -->
+        <%= image_tag 'icons/comment.png', class: 'icon' %>
+        <!-- コメントカウント -->
+        <span class="icon-count">
           <%= @event.event_comments.count %>
-          <!-- 詳細情報 -->
-          <h3>イベント情報</h3>
-          <table class="event-table">
-            <tr>
-              <td>開催日時</td>
-              <td><%= @event.date.strftime('%Y/%m/%d') %></td>
-              <% if @event.end_time.blank? then %>
-                <td><%= @event.start_time.strftime('%H:%M') %> ～ </td>
+        </span>
+      </div>
+      <!-- 投稿者 -->
+      <h3 class="show-item">
+        主催者
+      </h3>
+      <p class="show-text">
+        <%= @event.user.name %>
+        <!-- フォロー機能 -->
+        <% if logged_in? %>
+          <% unless @event.user == current_user %>
+            <span class="show-follow">
+              <% if current_user.following?(@event.user) %>
+                <%= link_to 'フォロー解除', unfollow_path(@event.user.id), method: :post %>
               <% else %>
-                <td><%= @event.start_time.strftime('%H:%M') %> ～ <%= @event.end_time.strftime('%H:%M') %></td>
+                <%= link_to 'フォロー', follow_path(@event.user.id), method: :post %>
               <% end %>
+            </span>
+          <% end %>
+        <% end %>
+      </p>
+      <!--イベント情報 -->
+      <h3 class="show-item">
+        イベント情報
+      </h3>
+      <table class="show-table">
+        <tr class="row">
+          <td class="col-md-4">開催日時</td>
+          <td class="col-md-4"><%= @event.date.strftime('%Y/%m/%d') %></td>
+          <% if @event.end_time.blank? then %>
+            <td class="col-md-4"><%= @event.start_time.strftime('%H:%M') %> ～ </td>
+          <% else %>
+            <td class="col-md-4"><%= @event.start_time.strftime('%H:%M') %> ～ <%= @event.end_time.strftime('%H:%M') %></td>
+          <% end %>
+        </tr>
+        <tr class="row">
+          <td class="col-md-4">開催地</td>
+          <td class="col-md-4"><%= @event.location %></td>
+        </tr>
+        <tr class="row">
+          <td class="col-md-4">詳細</td>
+          <td class="col-md-4"><%= @event.description %></td>
+        </tr>
+        <% if !@event.recruit_status then %>
+          <tr class="row">
+            <td class="col-md-4">参加締め切り</td>
+            <td class="col-md-4"><%= @event.deadline %></td>
+          </tr>
+          <% if !@event.acceptNo.empty? then %>
+            <tr class="row">
+              <td class="col-md-4">参加可能人数</td>
+              <td class="col-md-4"><%= @event.acceptNo %></td>
             </tr>
-            <tr>
-              <td>開催地</td>
-              <td><%= @event.location %></td>
-            </tr>
-            <tr>
-              <td>詳細</td>
-              <td><%= @event.description %></td>
-            </tr>
-            <% if !@event.recruit_status then %>
-              <tr>
-                <td>参加締め切り</td>
-                <td><%= @event.deadline %></td>
-              </tr>
-              <% if !@event.acceptNo.empty? then %>
-                <tr>
-                  <td>参加可能人数</td>
-                  <td><%= @event.acceptNo %></td>
-                </tr>
-              <% end %>
-            <% end %>
-          </table>
-          <!-- 参加登録 -->
-          <p class="event-text">
-            <% if @event.recruit_status then %>
-              <% if logged_in? %>
-                <% if @event.participant_users.include?(current_user) %>
-                  <%= link_to "参加取消", participants_path(event_id: @event.id), method: :delete, class: "btn btn-block btn-black" %>
-                <% else %>
-                  <%= link_to "参加", participants_path(event_id: @event.id), method: :post, class: "btn btn-block btn-black" %>
-                <% end %>
-              <% end %>
+          <% end %>
+        <% end %>
+      </table>
+      <!-- 参加登録 -->
+      <h3 class="show-item">
+        参加登録
+      </h3>
+      <p class="show-text">
+        <% if @event.recruit_status then %>
+          <% if logged_in? %>
+            <% if @event.participant_users.include?(current_user) %>
+              <%= link_to "参加取消", participants_path(event_id: @event.id), method: :delete, class: "btn btn-block btn-black" %>
             <% else %>
-              参加受付が終了しています。
+              <%= link_to "参加", participants_path(event_id: @event.id), method: :post, class: "btn btn-block btn-black" %>
             <% end %>
-          </p>
-          <!-- コメント表示 -->
-          <h3 class="comment-titile">
-            コメント
-          </h3>
-          <% if @comments.exists?(event_id: @event.id) %>
-            <div class="section-comment">
-              <% @comments.each do |comment| %>
-                <div class="comment-user">
-                  <%= comment.user.name + ' >' %>
-                </div>
-                <div class="comment-content">
-                  <%= comment.message %>
-                </div>
-              <% end %>
+          <% end %>
+        <% else %>
+          参加受付が終了しています。
+        <% end %>
+      </p>
+      <!-- コメント表示 -->
+      <div class="comment-section">
+        <h3 class="comment-titile">
+          コメント
+        </h3>
+        <% if @comments.exists?(event_id: @event.id) %>
+          <% @comments.each do |comment| %>
+            <div class="comment-user">
+              <%= comment.user.name + ' >' %>
+            </div>
+            <div class="comment-content">
+              <%= comment.message %>
             </div>
           <% end %>
-          <!-- コメント入力 -->
-          <% if logged_in? %>
-            <%= form_for [@event, @comment] do |f| %>
-              <div class="form-group">
-                <%= f.text_area :message, class: 'form-control' %>
-              </div>
-              <%= f.submit '送信', class: 'btn btn-black btn-block' %>
-            <% end %>
+        <% end %>
+        <!-- コメント入力 -->
+        <% if logged_in? %>
+          <%= form_for [@event, @comment] do |f| %>
+            <div class="form-group">
+              <%= f.text_area :message, class: 'form-control' %>
+            </div>
+            <%= f.submit '送信', class: 'btn btn-black btn-block' %>
           <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>

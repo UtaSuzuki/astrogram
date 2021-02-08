@@ -1,64 +1,69 @@
-<div class="photo-show-wrapper">
+<div class="show-wrapper">
   <div class="container">
     <div class="col-md-8 col-md-offset-2">
       <!-- 画像 -->
-      <%= image_tag @photo.image.url %>
+      <%= image_tag @photo.image.url, class: 'show-img' %>
       <!-- タイトル -->
       <div class="text-center">
-        <p class="photo-show-title">
+        <p class="show-title">
           <%= @photo.title %>
         </p>
       </div>
       <!-- 各種アイコン -->
-      <div class="text-center">
+      <div class="text-center icon-area">
         <!-- いいね -->
-        <!-- ログイン中のみいいね可能 -->
-        <% if logged_in? %>
+        <% if logged_in? && @photo.condition.user != current_user %>
+          <!-- ログイン中の表示 -->
           <% if @photo.favorite_users.include?(current_user) %>
             <!-- いいね済のとき -->
             <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :delete do %>
-              <%= image_tag 'icons/heart.png', class: 'photo-favorited-icon' %>
+              <%= image_tag 'icons/heart.png', class: 'icon-favorited' %>
             <% end %>
           <% else %>
-            <!-- いいね未のとき -->
+            <!-- 未いいねのとき -->
             <%= link_to favorites_path(photo_id: @photo.id, redirect_flg: 1), method: :post do %>
-              <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
+              <%= image_tag 'icons/heart.png', class: 'icon' %>
             <% end %>
           <% end %>
         <% else %>
-          <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
+          <!-- ログオフ中の表示 -->
+          <%= image_tag 'icons/heart.png', class: 'icon' %>
         <% end %>
         <!-- いいねカウント -->
-        <%= @photo.favorites.count %>
-        <!-- コメントアイコン -->
-        <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
+        <span class="icon-count">
+          <%= @photo.favorites.count %>
+        </span>
+        <!-- コメント -->
+        <%= image_tag 'icons/comment.png', class: 'icon' %>
         <!-- コメントカウント -->
-        <%= @photo.photo_comments.count %>
+        <span class="icon-count">
+          <%= @photo.photo_comments.count %>
+        </span>
       </div>
       <!-- 投稿者 -->
-      <h3 class="photo-show-item">
+      <h3 class="show-item">
         作者
       </h3>
-      <p class="photo-show-text">
+      <p class="show-text">
         <%= @photo.condition.user.name %>
         <!-- フォロー機能 -->
-        <span class="photo-show-follow">
-          <% if logged_in? %>
-            <% unless @photo.condition.user == current_user %>
+        <% if logged_in? %>
+          <% unless @photo.condition.user == current_user %>
+            <span class="show-follow">
               <% if current_user.following?(@photo.condition.user) %>
                 <%= link_to 'フォロー解除', unfollow_path(@photo.condition.user.id), method: :post %>
               <% else %>
                 <%= link_to 'フォロー', follow_path(@photo.condition.user.id), method: :post %>
               <% end %>
-            <% end %>
+            </span>
           <% end %>
-        </span>
+        <% end %>
       </p>
       <!-- 撮影情報 -->
-      <h3 class="photo-show-item">
+      <h3 class="show-item">
         撮影情報
       </h3>
-      <table class="photo-show-table">
+      <table class="show-table">
         <% if !@photo.date.nil? %>
           <tr class="row">
             <td class="col-md-4">撮影日時</td>
@@ -72,10 +77,10 @@
         </tr>
       </table>
       <!-- 撮影機材 -->
-      <h3 class="photo-show-item">
+      <h3 class="show-item">
         撮影機材
       </h3>
-      <table class="photo-show-table">
+      <table class="show-table">
         <tr>
           <td class="col-md-4">カメラ</td>
           <td class="col-md-4"><%= @photo.condition.camera %></td>
@@ -154,24 +159,24 @@
         <% end %>
       </table>
       <!-- 価格 -->
-      <h3 class="photo-show-item">
+      <h3 class="show-item">
         価格
       </h3>
-      <p class="photo-show-text">
+      <p class="show-text">
         <%= @photo.price %>円
         <span>
           <% if logged_in? %>
             <% if @photo.condition.user_id != current_user.id %>
-              <%= link_to "購入", new_order_path(id: @photo.id), class: "btn btn-black photo-show-btn-block" %>
+              <%= link_to "購入", new_order_path(id: @photo.id), class: "btn btn-black show-btn-block" %>
             <% end %>
           <% end %>
         </span>
       </p>
-      <!-- 備考 -->
-      <h3 class="photo-show-item">
-        説明
+      <!-- 詳細 -->
+      <h3 class="show-item">
+        詳細
       </h3>
-      <p class="photo-show-text">
+      <p class="show-text">
         <%= @photo.description %>
       </p>
       <!-- コメント表示 -->
