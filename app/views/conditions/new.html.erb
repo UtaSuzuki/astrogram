@@ -1,53 +1,88 @@
-<div class="condition-new-wrapper">
+<div class="new-wrapper">
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h1 class="text-center">撮影条件登録</h1>
-        <%= form_for @condition do |f| %>
-          <!-- タイトル入力 -->
-          <div class="form-group">
+    <div class="col-md-offset-3 col-md-6">
+      <!-- トップタイトル -->
+      <h1 class="text-center">
+        撮影条件登録
+      </h1>
+      <%= form_for @condition do |f| %>
+        <!-- タイトル入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :title, "タイトル (必須)" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_field :title %>
           </div>
-          <!-- カメラ入力 -->
-          <div class="form-group">
+        </div>
+        <!-- カメラ入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :camera, "カメラ（必須）" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_field :camera %>
           </div>
-          <!-- レンズ入力 -->
-          <div class="form-group">
+        </div>
+        <!-- レンズ入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :lens, "レンズ" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_field :lens %>
           </div>
-          <!-- 望遠鏡入力 -->
-          <div class="form-group">
+        </div>
+        <!-- 望遠鏡入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :telescope, "天体望遠鏡" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_field :telescope %>
           </div>
-          <!-- フィルター入力 -->
-          <div class="form-group">
+        </div>
+        <!-- フィルター入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :filter, "フィルター" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_field :filter %>
           </div>
-          <!-- マウント入力 -->
-          <div class="form-group">
+        </div>
+        <!-- マウント入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :mount, "マウント" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_field :mount %>
           </div>
-          <!-- 三脚入力 -->
-          <div class="form-group">
+        </div>
+        <!-- 三脚入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :tripod, "三脚" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_field :tripod %>
           </div>
-          <!-- 備考入力 -->
-          <div class="form-group">
+        </div>
+        <!-- 備考入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :description, "備考" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_area :description %>
           </div>
-          <!-- 投稿ボタン -->
+        </div>
+        <!-- 投稿ボタン -->
+        <div class="row form-group">
           <%= f.submit "投稿", class: 'btn btn-black btn-block' %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

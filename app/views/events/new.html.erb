@@ -1,58 +1,97 @@
 <div class="new-wrapper">
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h1 class="text-center">イベント投稿</h1>
-        <%= form_for @event do |f| %>
-          <!-- タイトル入力 -->
-          <div class="form-group">
+    <div class="col-md-offset-3 col-md-6">
+      <!-- トップタイトル -->
+      <h1 class="text-center">
+        イベント投稿
+      </h1>
+      <%= form_for @event do |f| %>
+        <!-- タイトル入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :title, "タイトル (必須)" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_field :title %>
           </div>
-          <!-- 画像選択 -->
-          <div class="form-group">
+        </div>
+        <!-- 画像選択 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :image, "広告画像" %>
+          </div>
+          <div class="col-md-4">
             <%= f.file_field :image %>
           </div>
-          <!-- 開催日入力 -->
-          <div class="form-group">
+        </div>
+        <!-- 開催日入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :date, "開催日" %>
+          </div>
+          <div class="col-md-4">
             <%= f.date_select :date, {include_blank: true, start_year: 2020, use_month_numbers: true}, class: "datetime-box" %>
           </div>
-          <!-- 開始時刻入力 -->
-          <div class="form-group">
+        </div>
+        <!-- 開始時刻入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :start_time, "開始時刻 (必須)" %>
+          </div>
+          <div class="col-md-4">
             <%= f.time_select :start_time, {include_blank: true, minute_step: 5}, class: "datetime-box" %>
           </div>
-          <!-- 終了時刻入力 -->
-          <div class="form-group">
+        </div>
+        <!-- 終了時刻入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :end_time, "終了時刻" %>
+          </div>
+          <div class="col-md-4">
             <%= f.time_select :end_time, {include_blank: true, minute_step: 5}, class: "datetime-box" %>
           </div>
-          <!-- 開催地入力 -->
-          <div class="form-group">
+        </div>
+        <!-- 開催地入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :location, "開催地 (必須)" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_field :location %>
           </div>
-          <!-- 募集締め切り日入力 -->
-          <div class="form-group">
+        </div>
+        <!-- 募集締め切り日入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :deadline, "募集締め切り日" %>
+          </div>
+          <div class="col-md-4">
             <%= f.date_select :deadline, {include_blank: true, start_year: 2020, use_month_numbers: true}, class: "datetime-box" %>
           </div>
-          <!-- 募集人数入力 -->
-          <div class="form-group">
+        </div>
+        <!-- 募集人数入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :accept_number, "募集人数" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_field :accept_number %>
           </div>
-          <!-- 詳細説明入力 -->
-          <div class="form-group">
+        </div>
+        <!-- 詳細説明入力 -->
+        <div class="row form-group">
+          <div class="col-md-4">
             <%= f.label :description, "詳細 (必須)" %>
+          </div>
+          <div class="col-md-4">
             <%= f.text_area :description %>
           </div>
-          <!-- 投稿ボタン -->
+        </div>
+        <!-- 投稿ボタン -->
+        <div class="row form-group">
           <%= f.submit "投稿", class: 'btn btn-black btn-block' %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

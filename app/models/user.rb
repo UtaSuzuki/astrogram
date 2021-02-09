@@ -13,13 +13,13 @@ class User < ApplicationRecord
   has_one  :card, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :order_photos, through: :orders, source: 'photo'
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :favorite_photos, through: :favorites, source: 'photo'
   has_many :photo_comments
   has_many :photo_comments_photos, through: :photo_comments, source: 'photo'
   has_many :event_comments
   has_many :event_comments_events, through: :evnet_comments, source: 'event'
-  has_many :relationships
+  has_many :relationships, dependent: :destroy
   has_many :follower, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy  # フォロー取得
   has_many :followed, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy  # フォロワー取得
   has_many :following_user, through: :follower, source: :followed    # 自分がフォローしている人

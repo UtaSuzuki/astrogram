@@ -1,33 +1,41 @@
-<div class="photo-user-index-wrapper">
+<div class="index-wrapper">
   <div class="container">
     <!-- トップタイトル -->
-    <h1 class="text-black text-center">投稿写真</h1>
+    <h1 class="text-black text-center">
+      投稿写真
+    </h1>
     <!-- 新規投稿ページへのボタン -->
     <% if current_user && create_user? %>
       <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <%= link_to "投稿", new_photo_path, class: 'btn btn-black btn-block' %>
+        <div class="col-md-offset-3 col-md-6">
+          <%= link_to "新規投稿", new_photo_path, class: 'btn btn-black btn-block' %>
         </div>
       </div>
     <% end %>
     <!-- 写真一覧 -->
     <% @photos.each do |photo| %>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+      <div class="col-md-3">
+        <div class="index-single">
+          <!-- 画像 -->
           <%= link_to photo_path(photo.id) do %>
-            <div class="photo-user-index-single">
-              <!-- タイトル -->
-              <h2 class="photo-title">
-                <%= photo.title %>
-              </h2>
-              <!-- 画像 -->
-              <%= image_tag photo.image.url %>
-              <!-- いいね -->
-              <%= image_tag 'icons/heart.png', class: 'photo-index-icon' %>
-              <!-- コメント -->
-              <%= image_tag 'icons/comment.png', class: 'photo-index-icon' %>
-            </div>
+            <%= image_tag photo.image.url, class: 'index-img' %>
           <% end %>
+          <!-- 各種アイコン -->
+          <div class="icon-area">
+            <!-- いいね -->
+            <%= image_tag 'icons/heart.png', class: 'icon' %>
+            <!-- いいねカウント -->
+            <span class="icon-count">
+               <%= photo.favorites.count %>
+             </span>
+            <!-- コメント -->
+            <%= image_tag 'icons/comment.png', class: 'icon' %>
+            <!-- コメントカウント -->
+            <span class="icon-count">
+              <%= photo.photo_comments.count %>
+            </span>
+            
+          </div>
         </div>
       </div>
     <% end %>

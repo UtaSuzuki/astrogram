@@ -16,7 +16,6 @@ class EventsController < ApplicationController
   
   def index
     @events = Event.includes(:user)
-    @comments = EventComment.all
   end
   
   def show
@@ -28,6 +27,7 @@ class EventsController < ApplicationController
   
   def user_index
     @events = Event.where(user_id: current_user.id)
+    @comments = @events.includes(:comment)
   end
   
   private

@@ -1,33 +1,59 @@
-<div class="event-user-index-wrapper">
+<div class="index-wrapper">
   <div class="container">
     <!-- トップタイトル -->
-    <h1 class="text-black text-center">投稿イベント</h1>
+    <h1 class="text-black text-center">
+      投稿イベント
+    </h1>
     <!-- 新規投稿ページへのボタン -->
     <% if current_user && create_user? %>
       <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <%= link_to "投稿", new_event_path, class: 'btn btn-black btn-block' %>
+        <div class="col-md-offset-3 col-md-6">
+          <%= link_to "新規投稿", new_event_path, class: 'btn btn-black btn-block' %>
         </div>
       </div>
     <% end %>
     <!-- イベント一覧 -->
     <% @events.each do |event| %>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <%= link_to event_path(event.id) do %>
-            <div class="event-user-index-single">
-              <!-- タイトル -->
-              <h2 class="event-title">
+      <div class="index-single">
+        <div class="row">
+          <div class="col-md-3">
+            <!-- 画像 -->
+            <%= link_to event_path(event.id) do %>
+              <%= image_tag event.image.url, class: 'index-img' %>
+            <% end %>
+          </div>
+          <div class="col-md-7">
+            <!-- タイトル -->
+            <%= link_to event_path(event.id) do %>
+              <h2 class="index-title">
                 <%= event.title %>
               </h2>
-              <!-- 画像 -->
-              <%= image_tag event.image.url %>
-              <!-- いいね -->
-              <%= image_tag 'icons/heart.png', class: 'event-index-icon' %>
-              <!-- コメント -->
-              <%= image_tag 'icons/comment.png', class: 'event-index-icon' %>
-            </div>
-          <% end %>
+            <% end %>
+            <!-- 詳細情報 -->
+            <table class="index-table">
+              <tr>
+                <td>開催日時</td>
+                <td><%= event.date.year %>/<%= event.date.month %>/<%= event.date.day %>  <%= event.start_time.hour %>:<%= event.start_time.min %></td>
+              </tr>
+              <tr>
+                <td>開催地</td>
+                <td><%= event.location %></td>
+              </tr>
+              <tr>
+                <td>説明</td>
+                <td><%= event.description %></td>
+              </tr>
+            </table>
+          </div>
+          <!-- 各種アイコン -->
+          <div class="icon-area">
+            <!-- コメント -->
+            <%= image_tag 'icons/comment.png', class: 'icon' %>
+            <!-- コメントカウント -->
+            <span class="icon-count">
+              <%= event.event_comments.count %>
+            </span>
+          </div>
         </div>
       </div>
     <% end %>

@@ -3,9 +3,9 @@ class ConditionsController < ApplicationController
   include ItemScrapesConcern
   
   def index
-    @conditions = Condition.where(user_id: current_user.id)
+    @conditions = current_user.conditions
     if !@conditions.nil? then
-      @itemLinks  = ItemLink.joins(:condition)
+      @itemLinks  = ItemLink.includes(:condition).where(conditions: {user_id: current_user.id})
     end
     # conditionsテーブルとitemLinkテーブルを連結して、viewに渡すデータを割り出す
     # itemLinkのurlはcsv形式(nLink,site1,site2,...,url1,url2,...)なので、各々配列に直し、インスタンス変数に格納してviewに渡す
