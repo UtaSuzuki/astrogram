@@ -1,14 +1,12 @@
-<div class="user-show-wrapper">
+<div class="show-wrapper">
   <div class="container">
-    
     <div class="row">
-      <div class="col-md-offset-4 col-md-4 user-show-container">
+      <div class="col-md-offset-4 col-md-4 show-container">
         <h1 class="text-center text-black">マイページ</h1>
-        <p><%= "id: #{@user.id}" %></p>
-        <p><%= "name: #{@user.name}" %></p>
+        <p><%= "ユーザID : #{@user.id}" %></p>
+        <p><%= "名前 : #{@user.name}" %></p>
         <%= link_to "フォロー: #{@user.follower.count}人", index_following_path, class: "btn btn-black btn-block" %>
         <%= link_to "フォロワー: #{@user.followed.count}人", index_follower_path, class: "btn btn-black btn-block" %>
-        <p></p>
         <%= link_to "アカウント情報の変更", edit_user_path, class: "btn btn-black btn-block" %>
         <%= link_to "購入履歴", orders_path, class: "btn btn-black btn-block" %>
         <!-- クリエータアカウントのみ有効 -->
@@ -21,6 +19,5 @@
         <%= link_to "アカウント削除", user_path, method: :delete, class: "btn btn-black btn-block destroy-user" %>
       </div>
     </div>
-    
   </div>
 </div>

@@ -62,12 +62,22 @@ h1, h2 {
   height: 45px;
 }
 
+// 新規作成ページ
 .new-wrapper {
-  padding-top: 120px;
+  padding-top: 80px;
+  
+  .new-container {
+    padding-top: 20px;
+    
+    .form-group {
+      margin-bottom: 10px;
+    }
+  }
 }
 
+// 一覧ページ
 .index-wrapper {
-  padding-top: 70px;
+  padding-top: 80px;
   padding-bottom: 70px;
   background-color: #fafafa;
   
@@ -106,6 +116,7 @@ h1, h2 {
   }
 }
 
+// 詳細ページ
 .show-wrapper {
   padding-top: 80px;
   margin-bottom: 20px;
@@ -156,27 +167,24 @@ h1, h2 {
   }
 }
 
-
-
-
-.users-new-wrapper {
-  width: 100vw;
-  height: 100vh;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-color: #fff;
+// 更新ページ
+.update-wrapper {
+  padding-top: 80px;
+  margin-bottom: 20px;
+  background-color: #fafafa;
   
-  .users-new-container {
-    padding-top: 220px;
+  .update-container {
+    padding-top: 20px;
+    margin-bottom: 10px;
     
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
   }
 }
 
+
+// アラート
 .alert {
   margin-bottom: 0px;
   position: fixed;
@@ -184,6 +192,7 @@ h1, h2 {
   z-index: 10000;
 }
 
+// トップバー
 .navbar-transparent {
   margin-bottom: 0px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -201,6 +210,7 @@ h1, h2 {
   }
 }
 
+// 撮影条件
 .condition-new-wrapper {
   padding-top: 120px;
 }
@@ -243,7 +253,7 @@ h1, h2 {
 
 
 
-  
+// コメント
 .comment-section {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -268,6 +278,7 @@ h1, h2 {
   }
 }
 
+// 各種アイコン
 .icon-area {
   text-align: right;
   padding-right: 10px;

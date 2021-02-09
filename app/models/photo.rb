@@ -9,6 +9,7 @@ class Photo < ApplicationRecord
   
   belongs_to :condition
   has_many :orders, dependent: :destroy
+  has_many :order_users, through: :orders, source: 'user'
   has_many :favorites
   has_many :favorite_users, through: :favorites, source: 'user'
   has_many :photo_comments

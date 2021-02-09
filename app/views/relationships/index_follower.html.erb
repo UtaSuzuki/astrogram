@@ -1,39 +1,37 @@
-<div class="follower-index-wrapper">
+<div class="index-wrapper">
   <div class="container">
     <!-- トップタイトル -->
     <h1 class="text-black text-center">フォロワー一覧</h1>
     <!-- フォローされているユーザ一覧 -->
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <table class="index-follower-table">
-          <tr>
-            <td>ID</td>
-            <td>名前</td>
-            <td>フォロー</td>
-            <td>フォロー解除</td>
+    <div class="col-md-offset-2 col-md-10">
+      <table class="index-table">
+        <tr class="row">
+          <td class="col-md-2">ID</td>
+          <td class="col-md-4">名前</td>
+          <td class="col-md-2">フォロー状態</td>
+          <td class="col-md-2">フォロー解除</td>
+        </tr>
+        <% @follower.each do |user| %>
+          <tr class="row">
+            <td class="col-md-2"><%= user.id %></td>
+            <td class="col-md-4"><%= user.name %></td>
+            <td class="col-md-2">
+              <% if current_user.following?(user) %>
+                <p>フォロー中</p>
+              <% else %>
+                <%= link_to 'フォロー', follow_path(user.id), method: :post %>
+              <% end %>
+            </td>
+            <td class="col-md-2">
+              <% if current_user.following?(user) %>
+                <%= link_to '解除', unfollow_path(user.id), method: :post %>
+              <% else %>
+                <p> - </p>
+              <% end %>
+            </td>
           </tr>
-          <% @follower.each do |user| %>
-            <tr>
-              <td><%= user.id %></td>
-              <td><%= user.name %></td>
-              <td>
-                <% if current_user.following?(user) %>
-                  <p>フォロー中</p>
-                <% else %>
-                  <%= link_to 'フォロー', follow_path(user.id), method: :post %>
-                <% end %>
-              </td>
-              <td>
-                <% if current_user.following?(user) %>
-                  <%= link_to '解除', unfollow_path(user.id), method: :post %>
-                <% else %>
-                  <p> - </p>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>

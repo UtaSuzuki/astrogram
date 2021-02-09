@@ -20,7 +20,7 @@
                     <%= sale.title %></td>
                   <% end %>
                 <td><%= sale.price %>円</td>
-                <td><%= @customers[sale.user_id-1].name %></td>
+                <td><%= @customers.find(sale.user_id).name %></td>
                 <td><%= sale.created_at.strftime('%Y/%m/%d %H:%M') %></td>
               </tr>
             <% end %>

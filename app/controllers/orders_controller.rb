@@ -101,17 +101,8 @@ class OrdersController < ApplicationController
   end
   
   def index
-    @purchases = Condition.joins(photos: :orders).select("
-      conditions.user_id,
-      photos.title,
-      photos.image,
-      photos.price,
-      orders.photo_id,
-      orders.created_at
-      ").where(
-        orders:{user_id: current_user.id}
-        )
-    @authors = User.all
+    @order_photos = current_user.order_photos
+    @orders = Order.all
   end
   
   def sales_index

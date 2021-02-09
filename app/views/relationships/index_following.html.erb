@@ -1,25 +1,23 @@
-<div class="following-index-wrapper">
+<div class="index-wrapper">
   <div class="container">
     <!-- トップタイトル -->
-    <h1 class="text-black text-center">フォロー一覧</h1>
+    <h1 class="text-black text-center">フォロー中のユーザ</h1>
     <!-- フォロー中のユーザ一覧 -->
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <table class="index-following-table">
-          <tr>
-            <td>ID</td>
-            <td>名前</td>
-            <td>フォロー解除</td>
+    <div class="col-md-offset-2 col-md-10">
+      <table class="index-table">
+        <tr class="row">
+          <td class="col-md-3">ID</td>
+          <td class="col-md-5">名前</td>
+          <td class="col-md-2">フォロー解除</td>
+        </tr>
+        <% @following.each do |user| %>
+          <tr class="row">
+            <td class="col-md-3"><%= user.id %></td>
+            <td class="col-md-5"><%= user.name %></td>
+            <td class="col-md-2"><%= link_to '解除', unfollow_path(user.id), method: :post %></td>
           </tr>
-          <% @following.each do |user| %>
-            <tr>
-              <td><%= user.id %></td>
-              <td><%= user.name %></td>
-              <td><%= link_to '解除', unfollow_path(user.id), method: :post %></td>
-            </tr>
-          <% end %>
-        </table>  
-      </div>
+        <% end %>
+      </table>  
     </div>
   </div>
 </div>

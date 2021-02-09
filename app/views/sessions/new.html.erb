@@ -1,21 +1,21 @@
-<div class="users-new-wrapper">
+<div class="new-wrapper">
   <div class="container">
     <div class="row">
-      <div class="col-md-offset-4 col-md-4 users-new-container">
-        <h1 class="text-center text-black">Log in</h1>
+      <div class="col-md-offset-4 col-md-4 new-container">
+        <h1 class="text-center text-black">ログイン</h1>
         <%= form_for :session, url: login_path do |f| %>
           <!-- メールアドレス入力 -->
           <div class="form-group">
-            <%= f.label :email, class: "text-black" %>
+            <%= f.label :email, "Eメール", class: "text-black" %>
             <%= f.text_field :email, class: "form-control" %>
           </div>
           <!-- パスワード入力 -->
           <div class="form-group">
-            <%= f.label :password, class: "text-black" %>
+            <%= f.label :password, "パスワード", class: "text-black" %>
             <%= f.password_field :password, class: "form-control" %>
           </div>
           <!-- ログインボタン -->
-          <%= f.submit "Log in", class: "btn-block btn-black" %>
+          <%= f.submit "ログイン", class: "btn-block btn-black" %>
         <% end %>
       </div>
     </div>

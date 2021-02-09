@@ -1,34 +1,58 @@
-<div class="order-index-wrapper">
+<div class="index-wrapper">
   <div class="container">
     <!-- トップタイトル -->
-    <h1 class="text-black text-center">購入履歴</h1>
+    <h1 class="text-black text-center">
+      購入履歴
+    </h1>
     <!-- 購入履歴一覧 -->
-    <% @purchases.each do |purchase| %>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <%= link_to photo_path(purchase.photo_id) do %>
-            <div class="order-index-single">
-              <!-- タイトル -->
-              <h3 class="photo-title">
-                <%= purchase.title %>
-              </h3>
-              <!-- 投稿者 -->
-              <p class="photo-author">
-                <%= @authors.find(purchase.user_id).name %>
-              </p>
-              <!-- 画像 -->
-              <%= image_tag '/uploads/photo/image/' + purchase.photo_id.to_s + '/' + purchase.image %>
-              <!-- 値段 -->
-              <p class="photo-price">
-                <%= purchase.price %>円
-              </p>
-              <!-- 購入日 -->
-              <p class="purchase-date">
-                <%= purchase.created_at.strftime('%Y/%m/%d %H:%M') %>
-              </p>
-            </div>
+    <% @order_photos.each do |photo| %>
+      <div class="col-md-6">
+        <div class="index-single">
+          <!-- 画像 -->
+          <%= link_to photo_path(photo.id) do %>
+            <%= image_tag photo.image.url, class: 'index-img' %>
           <% end %>
-        </div>
+            <!-- タイトル -->
+            <h3 class="index-item">
+              タイトル
+            </h3>
+            <p class="index-text">
+              <%= photo.title %>
+            </p>
+            <!-- 投稿者 -->
+            <h3 class="index-item">
+              作者
+            </h3>
+            <p class="index-text">
+              <%= photo.condition.user.name %>
+              <!-- フォロー機能 -->
+              <% if logged_in? %>
+                <% unless photo.condition.user == current_user %>
+                  <span class="index-follow">
+                    <% if current_user.following?(photo.condition.user) %>
+                      <%= link_to 'フォロー解除', unfollow_path(photo.condition.user.id), method: :post %>
+                    <% else %>
+                      <%= link_to 'フォロー', follow_path(photo.condition.user.id), method: :post %>
+                    <% end %>
+                  </span>
+                <% end %>
+              <% end %>
+            </p>
+            <!-- 値段 -->
+            <h3 class="index-item">
+              価格
+            </h3>
+            <p class="index-text">
+              <%= photo.price %>円
+            </p>
+            <!-- 購入日 -->
+            <h3 class="index-item">
+              購入日
+            </h3>
+            <p class="index-text">
+              <%= @orders.find_by(user_id: current_user.id, photo_id: photo.id).created_at.strftime('%Y/%m/%d %H:%M') %>
+            </p>
+          </div>
       </div>
     <% end %>
   </div>
