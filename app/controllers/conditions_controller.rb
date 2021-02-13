@@ -3,7 +3,10 @@ class ConditionsController < ApplicationController
   include ItemScrapesConcern
   
   def index
-    @conditions = current_user.conditions
+    @conditions = Condition.where(user_id: params[:id])
+    puts "---"
+    puts @conditions
+    puts "---"
     if !@conditions.nil? then
       @itemLinks  = ItemLink.includes(:condition).where(conditions: {user_id: current_user.id})
     end

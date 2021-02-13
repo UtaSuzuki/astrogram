@@ -45,7 +45,9 @@
         作者
       </h3>
       <p class="show-text">
-        <%= @photo.condition.user.name %>
+        <%= link_to user_path(id: @photo.condition.user_id) do %>
+          <%= @photo.condition.user.name %>
+        <% end %>
         <!-- フォロー機能 -->
         <% if logged_in? %>
           <% unless @photo.condition.user == current_user %>

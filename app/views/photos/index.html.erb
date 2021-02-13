@@ -5,7 +5,7 @@
       天体写真一覧
     </h1>
     <!-- 新規投稿ページへのボタン -->
-    <% if current_user && create_user? %>
+    <% if create_user? %>
       <div class="row">
         <div class="col-md-offset-3 col-md-6">
           <%= link_to "新規投稿", new_photo_path, class: 'btn btn-black btn-block' %>

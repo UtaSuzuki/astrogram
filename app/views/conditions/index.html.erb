@@ -4,110 +4,114 @@
     <h1 class="text-black text-center">
       撮影条件
     </h1>
-    <!-- 新規登録ページへのボタン -->
-    <div class="row">
-      <div class="col-md-offset-3 col-md-6">
-        <%= link_to "新規登録", new_condition_path, class: 'btn btn-black btn-block' %>
-      </div>
-    </div>
-    <!-- 撮影条件一覧 -->
-    <% @conditions.each do |condition| %>
+    <% if !@conditions[0].nil? %>
+      <!-- 新規登録ページへのボタン -->
+      <% if create_user? && ( current_user.id == @conditions[0].user_id ) %>
       <div class="row">
-        <div class="col-md-offset-2 col-md-8">
-          <div class="index-single">
-            <h2 class="index-item">
-              条件名
-              <span class="index-text">
-                <%= link_to condition.title, edit_condition_path(condition.id) %>
-              </span>
-            </h2>
-            <table class="index-table">
-              <tr class="row">
-                <td class="col-md-4">カメラ</td>
-                <td class="col-md-4"><%= condition.camera %></td>
-                <td class="col-md-4">
-                  <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).camera.split(',') %>
-                  <% nLink = itemLinkArr[0].to_i %>
-                  <% nLink.times do |i| %>
-                    <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
-                  <% end %>
-                </td>
-              </tr>
-              <% if !condition.lens.empty? then %>
-                <tr class="row">
-                  <td class="col-md-4">レンズ</td>
-                  <td class="col-md-4"><%= condition.lens %></td>
-                  <td class="col-md-4">
-                    <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).lens.split(',') %>
-                    <% nLink = itemLinkArr[0].to_i %>
-                    <% nLink.times do |i| %>
-                      <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-              <% if !condition.telescope.empty? then %>
-                <tr class="row">
-                  <td class="col-md-4">天体望遠鏡</td>
-                  <td class="col-md-4"><%= condition.telescope %></td>
-                  <td class="col-md-4">
-                    <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).telescope.split(',') %>
-                    <% nLink = itemLinkArr[0].to_i %>
-                    <% nLink.times do |i| %>
-                      <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-              <% if !condition.filter.empty? then %>
-                <tr class="row">
-                  <td class="col-md-4">フィルタ</td>
-                  <td class="col-md-4"><%= condition.filter %></td>
-                  <td class="col-md-4">
-                    <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).filter.split(',') %>
-                    <% nLink = itemLinkArr[0].to_i %>
-                    <% nLink.times do |i| %>
-                      <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-              <% if !condition.mount.empty? then %>
-                <tr class="row">
-                  <td class="col-md-4">マウント</td>
-                  <td class="col-md-4"><%= condition.mount %></td>
-                  <td class="col-md-4">
-                    <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).mount.split(',') %>
-                    <% nLink = itemLinkArr[0].to_i %>
-                    <% nLink.times do |i| %>
-                      <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-              <% if !condition.tripod.empty? then %>
-                <tr class="row">
-                  <td class="col-md-4">三脚</td>
-                  <td class="col-md-4"><%= condition.tripod %></td>
-                  <td class="col-md-4">
-                    <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).tripod.split(',') %>
-                    <% nLink = itemLinkArr[0].to_i %>
-                    <% nLink.times do |i| %>
-                      <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </table>
-            <h3 class="index-item">
-              詳細
-            </h3>
-            <p class="index-text">
-              <%= condition.description %>
-            </p>
-          </div>
+        <div class="col-md-offset-3 col-md-6">
+          <%= link_to "新規登録", new_condition_path, class: 'btn btn-black btn-block' %>
         </div>
       </div>
+      <% end %>
+      <!-- 撮影条件一覧 -->
+      <% @conditions.each do |condition| %>
+        <div class="row">
+          <div class="col-md-offset-2 col-md-8">
+            <div class="index-single">
+              <h2 class="index-item">
+                条件名
+                <span class="index-text">
+                  <%= link_to condition.title, edit_condition_path(condition.id) %>
+                </span>
+              </h2>
+              <table class="index-table">
+                <tr class="row">
+                  <td class="col-md-4">カメラ</td>
+                  <td class="col-md-4"><%= condition.camera %></td>
+                  <td class="col-md-4">
+                    <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).camera.split(',') %>
+                    <% nLink = itemLinkArr[0].to_i %>
+                    <% nLink.times do |i| %>
+                      <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
+                    <% end %>
+                  </td>
+                </tr>
+                <% if !condition.lens.empty? then %>
+                  <tr class="row">
+                    <td class="col-md-4">レンズ</td>
+                    <td class="col-md-4"><%= condition.lens %></td>
+                    <td class="col-md-4">
+                      <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).lens.split(',') %>
+                      <% nLink = itemLinkArr[0].to_i %>
+                      <% nLink.times do |i| %>
+                        <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                <% if !condition.telescope.empty? then %>
+                  <tr class="row">
+                    <td class="col-md-4">天体望遠鏡</td>
+                    <td class="col-md-4"><%= condition.telescope %></td>
+                    <td class="col-md-4">
+                      <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).telescope.split(',') %>
+                      <% nLink = itemLinkArr[0].to_i %>
+                      <% nLink.times do |i| %>
+                        <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                <% if !condition.filter.empty? then %>
+                  <tr class="row">
+                    <td class="col-md-4">フィルタ</td>
+                    <td class="col-md-4"><%= condition.filter %></td>
+                    <td class="col-md-4">
+                      <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).filter.split(',') %>
+                      <% nLink = itemLinkArr[0].to_i %>
+                      <% nLink.times do |i| %>
+                        <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                <% if !condition.mount.empty? then %>
+                  <tr class="row">
+                    <td class="col-md-4">マウント</td>
+                    <td class="col-md-4"><%= condition.mount %></td>
+                    <td class="col-md-4">
+                      <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).mount.split(',') %>
+                      <% nLink = itemLinkArr[0].to_i %>
+                      <% nLink.times do |i| %>
+                        <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                <% if !condition.tripod.empty? then %>
+                  <tr class="row">
+                    <td class="col-md-4">三脚</td>
+                    <td class="col-md-4"><%= condition.tripod %></td>
+                    <td class="col-md-4">
+                      <% itemLinkArr = @itemLinks.find_by(condition_id: condition.id).tripod.split(',') %>
+                      <% nLink = itemLinkArr[0].to_i %>
+                      <% nLink.times do |i| %>
+                        <span><%= link_to itemLinkArr[i+1], itemLinkArr[i+nLink+1] %></span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </table>
+              <h3 class="index-item">
+                詳細
+              </h3>
+              <p class="index-text">
+                <%= condition.description %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

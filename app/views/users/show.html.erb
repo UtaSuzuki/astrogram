@@ -2,21 +2,33 @@
   <div class="container">
     <div class="row">
       <div class="col-md-offset-4 col-md-4 show-container">
-        <h1 class="text-center text-black">マイページ</h1>
+        <h1 class="text-center text-black">
+          <%= @user.name %>
+        </h1>
+        <!-- 画像 -->
+        <% if !@user.image.nil? %>
+          <%= image_tag @user.image.url, class: 'user-show-img' %>
+        <% else %>
+          <%= image_tag "icons/account.png", class: 'user-show-img' %>
+        <% end %>
         <p><%= "ユーザID : #{@user.id}" %></p>
-        <p><%= "名前 : #{@user.name}" %></p>
+        <p><%= "タイプ : #{@user.kind}" %></p>
+        
+        <p><%= "プロフィール : #{@user.profile}" %></p>
+        
         <%= link_to "フォロー: #{@user.follower.count}人", index_following_path, class: "btn btn-black btn-block" %>
         <%= link_to "フォロワー: #{@user.followed.count}人", index_follower_path, class: "btn btn-black btn-block" %>
-        <%= link_to "アカウント情報の変更", edit_user_path, class: "btn btn-black btn-block" %>
-        <%= link_to "購入履歴", orders_path, class: "btn btn-black btn-block" %>
-        <!-- クリエータアカウントのみ有効 -->
-        <% if create_user? %>
-          <%= link_to "撮影条件一覧", conditions_path, class: "btn btn-black btn-block" %>
-          <%= link_to "投稿写真一覧", user_index_photo_path, class: "btn btn-black btn-block" %>
-          <%= link_to "投稿イベント一覧", user_index_event_path, class: "btn btn-black btn-block" %>
+        <%= link_to "撮影条件一覧", conditions_path(id: @user.id), class: "btn btn-black btn-block" %>
+        <%= link_to "投稿写真一覧", user_index_photo_path, class: "btn btn-black btn-block" %>
+        <%= link_to "投稿イベント一覧", user_index_event_path, class: "btn btn-black btn-block" %>
+        
+        <!-- 自分のページかつクリエータアカウントの時に表示 -->
+        <% if logged_in? && @user.id == current_user.id && create_user? %>
+          <%= link_to "アカウント情報の変更", edit_user_path, class: "btn btn-black btn-block" %>
+          <%= link_to "購入履歴", orders_path, class: "btn btn-black btn-block" %>
           <%= link_to "販売履歴", sales_index_order_path, class: "btn btn-black btn-block" %>
+          <%= link_to "アカウント削除", user_path, method: :delete, class: "btn btn-black btn-block destroy-user" %>
         <% end %>
-        <%= link_to "アカウント削除", user_path, method: :delete, class: "btn btn-black btn-block destroy-user" %>
       </div>
     </div>
   </div>

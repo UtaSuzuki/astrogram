@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(current_user.id)
+    @user = User.find(params[:id])
   end
   
   def edit
@@ -25,10 +25,11 @@ class UsersController < ApplicationController
     user = User.find(current_user.id)
     
     if user.authenticate(authenticate_params[:password_old]) && user.update(user_params)
-      redirect_to user_path, success: "ユーザ情報を更新しました"
+      redirect_to user_path(id: current_user.id), success: "ユーザ情報を更新しました"
     else
       flash.now[:danger] = "ユーザ情報の更新に失敗しました"
-      render :show
+      redirect_to user_path(id: current_user.id), danger: "ユーザ情報の更新に失敗しました"
+      # render :show, { id: current_user.id }
     end
     
   end
@@ -45,7 +46,7 @@ class UsersController < ApplicationController
   
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :kind)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :kind, :image, :profile)
   end
   
   def authenticate_params

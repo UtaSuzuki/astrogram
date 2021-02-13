@@ -6,27 +6,28 @@
         <%= form_for @user do |f| %>
           <!-- 名前入力 -->
           <div class="form-group">
-            <%= f.label :name, "名前", class: "text-black" %>
+            <%= f.label :name, "名前(必須)", class: "text-black" %>
             <%= f.text_field :name, class: "form-control" %>
           </div>
           <!-- メールアドレス入力 -->
           <div class="form-group">
-            <%= f.label :email, "メールアドレス", class: "text-black" %>
+            <%= f.label :email, "メールアドレス(必須)", class: "text-black" %>
             <%= f.text_field :email, class: "form-control" %>
           </div>
-          <!-- 新規パスワード入力 -->
+          <!-- アカウント画像 -->
           <div class="form-group">
-            <%= f.label :password, "パスワード", class: "text-black" %>
-            <%= f.password_field :password, class: "form-control", value: @user.name %>
+            <%= f.label :image, "アカウント画像", class: "text-black" %>
+            <%= f.file_field :image %>
           </div>
-          <!-- パスワード確認入力 -->
+          <!-- プロフィール -->
           <div class="form-group">
-            <%= f.label :password_confirmation, "パスワード(確認)", class: "text-black" %>
-            <%= f.password_field :password_confirmation, class: "form-control" %>
+            <%= f.label :profile, "プロフィール", class: "text-black" %>
+            <%= f.text_area :profile, class: "form-control" %>
           </div>
           <!-- ユーザ種別選択 -->
           <div class="form-group">
             <%= f.label "ユーザの種類", class: "text-black" %>
+            <div>
               <label class="btn btn-outline-secondary active" style="width:30%">
                 <%= f.radio_button :kind, "normal", checked: true %>
                 <%= f.label :kind, "一般", {value: "normal", style: "desplay: inline-block; color: #000;"} %>
@@ -35,7 +36,17 @@
                 <%= f.radio_button :kind, "creater" %>
                 <%= f.label :kind, "クリエータ", {value: "creater", style: "desplay: inline-block; color: #000;"} %>
               </label>
-            <!--</div> -->
+            </div>
+          </div>
+          <!-- 新規パスワード入力 -->
+          <div class="form-group">
+            <%= f.label :password, "パスワード(必須)", class: "text-black" %>
+            <%= f.password_field :password, class: "form-control", value: @user.name %>
+          </div>
+          <!-- パスワード確認入力 -->
+          <div class="form-group">
+            <%= f.label :password_confirmation, "パスワード(確認)", class: "text-black" %>
+            <%= f.password_field :password_confirmation, class: "form-control" %>
           </div>
           <!-- 登録ボタン -->
           <%= f.submit "登録", class: "btn-block btn-black" %>

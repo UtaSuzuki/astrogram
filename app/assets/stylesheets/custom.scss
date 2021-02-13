@@ -122,9 +122,14 @@ h1, h2 {
   margin-bottom: 20px;
   background-color: #fafafa;
   
-  img.show-img {
+  .show-img {
     margin-bottom: 10px;
     width: 100%;
+  }
+  
+  .user-show-img {
+    margin-bottom: 10px;
+    width: 50px;
   }
 
   .show-title {
