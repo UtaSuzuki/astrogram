@@ -3,12 +3,10 @@ class ConditionsController < ApplicationController
   include ItemScrapesConcern
   
   def index
+    @user = User.find(params[:id])
     @conditions = Condition.where(user_id: params[:id])
-    puts "---"
-    puts @conditions
-    puts "---"
     if !@conditions.nil? then
-      @itemLinks  = ItemLink.includes(:condition).where(conditions: {user_id: current_user.id})
+      @itemLinks  = ItemLink.includes(:condition).where(conditions: {user_id: params[:id]})
     end
     # conditionsテーブルとitemLinkテーブルを連結して、viewに渡すデータを割り出す
     # itemLinkのurlはcsv形式(nLink,site1,site2,...,url1,url2,...)なので、各々配列に直し、インスタンス変数に格納してviewに渡す
@@ -31,7 +29,7 @@ class ConditionsController < ApplicationController
       @itemLink.mount        = set_item_link('mount+' + @condition.mount)
       @itemLink.tripod       = set_item_link('tripod+' + @condition.tripod)
       if @itemLink.save
-        redirect_to conditions_path, success: '撮影情報の登録に成功しました'
+        redirect_to conditions_path(id: @condition.user_id), success: '撮影情報の登録に成功しました'
       else
         flash.now[:danger] = '撮影機器のリンク取得に失敗しました'
       end

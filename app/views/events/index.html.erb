@@ -33,7 +33,23 @@
             <table class="index-table">
               <tr>
                 <td>主催者</td>
-                <td><%= event.user.name %></td>
+                <td>
+                  <%= link_to user_path(id: event.user_id) do %>
+                    <%= event.user.name %>
+                  <% end %>
+                  <!-- フォロー機能 -->
+                  <% if logged_in? %>
+                    <% if event.user != current_user %>
+                      <span class="show-follow">
+                        <% if current_user.following?(event.user) %>
+                          <%= link_to 'フォロー解除', unfollow_path(event.user_id), method: :post %>
+                        <% else %>
+                          <%= link_to 'フォロー', follow_path(event.user_id), method: :post %>
+                        <% end %>
+                      </span>
+                    <% end %>
+                  <% end %>
+                </td>
               </tr>
               <tr>
                 <td>開催日時</td>

@@ -1,6 +1,6 @@
 <div class="show-wrapper">
   <div class="container">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-offset-2 col-md-8">
       <!-- 画像 -->
       <%= image_tag @photo.image.url, class: 'show-img' %>
       <!-- タイトル -->
@@ -50,7 +50,7 @@
         <% end %>
         <!-- フォロー機能 -->
         <% if logged_in? %>
-          <% unless @photo.condition.user == current_user %>
+          <% if @photo.condition.user != current_user %>
             <span class="show-follow">
               <% if current_user.following?(@photo.condition.user) %>
                 <%= link_to 'フォロー解除', unfollow_path(@photo.condition.user.id), method: :post %>

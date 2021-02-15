@@ -30,7 +30,8 @@ class PhotosController < ApplicationController
   end
   
   def user_index
-    @photos = Photo.includes(condition: :user).where(users: {id: current_user.id})
+    @user   = User.find(params[:id])
+    @photos = Photo.includes(condition: :user).where(users: {id: params[:id]})
   end
   
   private

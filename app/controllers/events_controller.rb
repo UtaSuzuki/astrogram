@@ -26,7 +26,8 @@ class EventsController < ApplicationController
   end
   
   def user_index
-    @events = Event.where(user_id: current_user.id)
+    @user = User.find(params[:id])
+    @events = Event.where(user_id: params[:id])
     @comments = @events.includes(:comment)
   end
   

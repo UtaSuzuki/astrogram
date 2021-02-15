@@ -1,56 +1,65 @@
-<div class="purchase-index-wrapper">
+<div class="new-wrapper">
   <div class="container">
     <!-- トップタイトル -->
-    <h1 class="text-black text-center">購入内容の確認</h1>
+    <h1 class="text-black text-center">
+      購入内容の確認
+    </h1>
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <!-- 購入内容表示 -->
-        <div class="photo-index-single">
-          <!-- 投稿者 -->
-          <h3 class="photo-author">
-            <%= @autor %>
-          </h3>
-          <h2>
-            「<%= @photo.title %>」
-          </h2>
-          <%= image_tag @photo.image.url %>
-          <p class="photo-text">
-            <%= @photo.description %>
-          </p>
-          <h3>価格</h3>
-          <p class="photo-text">
-            <%= @photo.price.to_s + "円" %>
-          </p>
-          <!-- クレジットカード登録済みの場合の表示 -->
-          <% if current_user.card.present? %>
-            <div class="card-info-title">
-              クレジットカード情報
-              <div class="card-brand">
-                <%= image_tag "cards/#{@card_src}", class: "card-brand-img", alt: @card_brand %>
-              </div>
-              <div class="card-number">
-                <h3>カード番号</h3>
-                <%= "**** **** **** " + @customer_card.last4 %>
-              </div>
-              <div class="card-number">
-                <h3>有効期限</h3>
-                <%= @exp_month + " / " + @exp_year %>
-              </div>
-            </div>
-            <%= link_to "購入する", pay_photo_order_path(id: @card.user_id, photo_id: @photo.id), method: :post, class: "btn btn-black btn-block" %>
-          <% else %>
-            <%= form_tag pay_photo_order_path(id: current_user.id, photo_id: @photo.id), method: :post do %>
-              <script
-                type="text/javascript"
-                src="https://checkout.pay.jp/"
-                class="payjp-button"
-                data-key="<%= ENV["PAYJP_PUBLIC_KEY"] %>"
-                data-text="カードを登録する">
-              </script>
-            <% end %>
-            <p>決済方法決定</p>
+      <div class="col-md-offset-2 col-md-4">
+        <!-- 画像 -->
+        <%= image_tag @photo.image.url, class: 'new-img' %>
+      </div>
+      <div class="col-md-6">
+        <h3 class="new-item">
+          タイトル
+        </h3>
+        <p class="new-text">
+          <%= @photo.title %>
+        </p>
+        <h3 class="new-item">
+          作者
+        </h3>
+        <p class="new-text">
+          <%= link_to user_path(id: @photo.condition.user_id) do %>
+            <%= @photo.condition.user.name %>
           <% end %>
-        </div>
+        </p>
+        <h3 class="new-item">
+          価格
+        </h3>
+        <p class="new-text">
+          <%= "#{@photo.price}円" %>
+        </p>
+        <!-- クレジットカード登録済みの場合の表示 -->
+        <% if current_user.card.present? %>
+          <h3 class="new-item">
+            クレジットカード情報
+          </h3>
+          <%= image_tag "cards/#{@card_src}", class: "card-new-img", alt: @card_brand %>
+          <h4 class="new-item">
+            カード番号
+          </h4>
+          <p class="new-text">
+            <%= "**** **** **** #{@customer_card.last4}" %>
+          </p>
+          <h4 class="new-item">
+            有効期限
+          </h4>
+          <p class="new-text">
+            <%= "#{@exp_month} / #{@exp_year}"%>
+          </p>
+          <%= link_to "購入する", pay_photo_order_path(id: @card.user_id, photo_id: @photo.id), method: :post, class: "btn btn-black btn-block" %>
+        <% else %>
+          <%= form_tag pay_photo_order_path(id: current_user.id, photo_id: @photo.id), method: :post do %>
+            <script
+              type="text/javascript"
+              src="https://checkout.pay.jp/"
+              class="payjp-button"
+              data-key="<%= ENV["PAYJP_PUBLIC_KEY"] %>"
+              data-text="カードを登録する">
+            </script>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

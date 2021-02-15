@@ -12,6 +12,6 @@ class ApplicationController < ActionController::Base
   end
   
   def create_user?
-    session[:user_kind] == "creater"
+    logged_in? && ( session[:user_kind] == "creater" )
   end
 end

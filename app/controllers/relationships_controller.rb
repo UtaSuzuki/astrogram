@@ -10,12 +10,12 @@ class RelationshipsController < ApplicationController
   end
   
   def index_following
-    @user = User.find(current_user.id)
-    @following = @user.following_user.where.not(id: current_user.id)
+    @user = User.find(params[:id])
+    @following = @user.following_user.where.not(id: params[:id])
   end
   
   def index_follower
-    @user = User.find(current_user.id)
-    @follower = @user.follower_user.where.not(id: current_user.id)
+    @user = User.find(params[:id])
+    @follower = @user.follower_user.where.not(id: params[:id])
   end
 end

@@ -1,21 +1,25 @@
-<div class="card-show-wrapper">
+<div class="show-wrapper">
   <div class="container">
     <!-- トップタイトル -->
-    <h1 class="text-black text-center">登録カード情報</h1>
+    <h1 class="text-black text-center">
+      登録カード情報
+    </h1>
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="card-show-single">
-          <div class="card-brand">
-            <%= image_tag "cards/#{@card_src}", class: "card-brand-img", alt: @card_brand %>
-          </div>
-          <div class="card-number">
-            <h3>カード番号</h3>
-            <%= "**** **** **** " + @customer_card.last4 %>
-          </div>
-          <div class="card-number">
-            <h3>有効期限</h3>
-            <%= @exp_month + " / " + @exp_year %>
-          </div>
+      <div class="col-md-offset-3 col-md-6">
+        <div class="show-single">
+          <%= image_tag "cards/#{@card_src}", class: "card-show-img", alt: @card_brand %>
+          <h3 class="show-item">
+            カード番号
+          </h3>
+          <p class="show-text">
+            <%= "**** **** **** #{@customer_card.last4}" %>
+          </p>
+          <h3 class="show-item">
+            有効期限
+          </h3>
+          <p class="show-text">
+            <%= "#{@exp_month} / #{@exp_year}" %>
+          </p>
           <%= form_with url: cards_path do %>
             <script
               type="text/javascript"

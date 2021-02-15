@@ -2,18 +2,18 @@
   <div class="container">
     <!-- トップタイトル -->
     <h1 class="text-black text-center">
-      撮影条件
+      <%= "#{@user.name} の撮影条件" %>
     </h1>
-    <% if !@conditions[0].nil? %>
-      <!-- 新規登録ページへのボタン -->
-      <% if create_user? && ( current_user.id == @conditions[0].user_id ) %>
-      <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-          <%= link_to "新規登録", new_condition_path, class: 'btn btn-black btn-block' %>
-        </div>
+    <!-- 新規登録ページへのボタン -->
+    <% if create_user? && ( current_user.id == @user.id ) %>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+        <%= link_to "新規登録", new_condition_path, class: 'btn btn-black btn-block' %>
       </div>
-      <% end %>
-      <!-- 撮影条件一覧 -->
+    </div>
+    <% end %>
+    <!-- 撮影条件一覧 -->
+    <% if !@conditions[0].nil? %>
       <% @conditions.each do |condition| %>
         <div class="row">
           <div class="col-md-offset-2 col-md-8">
@@ -21,7 +21,15 @@
               <h2 class="index-item">
                 条件名
                 <span class="index-text">
-                  <%= link_to condition.title, edit_condition_path(condition.id) %>
+                  <% if logged_in? %>
+                    <% if condition.id == current_user.id %>
+                      <%= link_to condition.title, edit_condition_path(condition.id) %>
+                    <% else %>
+                      <%= "#{condition.title}" %>
+                    <% end %>
+                  <% else %>
+                    <%= "#{condition.title}" %>
+                  <% end %>
                 </span>
               </h2>
               <table class="index-table">
