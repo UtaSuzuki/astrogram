@@ -8,29 +8,41 @@
     <div class="col-md-offset-2 col-md-8">
       <table class="index-table">
         <tr class="row">
-          <td class="col-md-2">ID</td>
-          <td class="col-md-4">名前</td>
-          <td class="col-md-2">フォロー状態</td>
-          <td class="col-md-2">フォロー解除</td>
+          <td class="col-md-1">ID</td>
+          <td class="col-md-3">名前</td>
+          <% if logged_in? %>
+            <% if current_user == @user %>
+              <td class="col-md-2">フォロー状態</td>
+              <td class="col-md-2">フォロー解除</td>
+            <% end %>
+          <% end %>
         </tr>
         <% @follower.each do |user| %>
           <tr class="row">
-            <td class="col-md-2"><%= user.id %></td>
-            <td class="col-md-4"><%= user.name %></td>
-            <td class="col-md-2">
-              <% if current_user.following?(user) %>
-                <p>フォロー中</p>
-              <% else %>
-                <%= link_to 'フォロー', follow_path(user.id), method: :post %>
+            <td class="col-md-1"><%= user.id %></td>
+            <td class="col-md-3">
+              <%= link_to user_path(id: user.id) do %>
+                <%= user.name %>
               <% end %>
             </td>
-            <td class="col-md-2">
-              <% if current_user.following?(user) %>
-                <%= link_to '解除', unfollow_path(user.id), method: :post %>
-              <% else %>
-                <p> - </p>
+            <% if logged_in? %>
+              <% if current_user == @user %>
+                <td class="col-md-2">
+                  <% if current_user.following?(user) %>
+                    <p>フォロー中</p>
+                  <% else %>
+                    <%= link_to 'フォロー', follow_path(user.id), method: :post %>
+                  <% end %>
+                </td>
+                <td class="col-md-2">
+                  <% if current_user.following?(user) %>
+                    <%= link_to '解除', unfollow_path(user.id), method: :post %>
+                  <% else %>
+                    <p> - </p>
+                  <% end %>
+                </td>
               <% end %>
-            </td>
+            <% end %>
           </tr>
         <% end %>
       </table>

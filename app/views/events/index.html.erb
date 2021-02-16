@@ -40,7 +40,7 @@
                   <!-- フォロー機能 -->
                   <% if logged_in? %>
                     <% if event.user != current_user %>
-                      <span class="show-follow">
+                      <span class="index-follow">
                         <% if current_user.following?(event.user) %>
                           <%= link_to 'フォロー解除', unfollow_path(event.user_id), method: :post %>
                         <% else %>

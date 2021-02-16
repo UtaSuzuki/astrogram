@@ -18,9 +18,11 @@
         
         <%= link_to "フォロー: #{@user.follower.count}人", index_following_path(id: @user.id), class: "btn btn-black btn-block" %>
         <%= link_to "フォロワー: #{@user.followed.count}人", index_follower_path(id: @user.id), class: "btn btn-black btn-block" %>
-        <%= link_to "撮影条件一覧", conditions_path(id: @user.id), class: "btn btn-black btn-block" %>
-        <%= link_to "投稿写真一覧", user_index_photo_path(id: @user.id), class: "btn btn-black btn-block" %>
-        <%= link_to "投稿イベント一覧", user_index_event_path(id: @user.id), class: "btn btn-black btn-block" %>
+        <% if create_user? %>
+          <%= link_to "撮影条件一覧", conditions_path(id: @user.id), class: "btn btn-black btn-block" %>
+          <%= link_to "投稿写真一覧", user_index_photo_path(id: @user.id), class: "btn btn-black btn-block" %>
+          <%= link_to "投稿イベント一覧", user_index_event_path(id: @user.id), class: "btn btn-black btn-block" %>
+        <% end %>
         
         <!-- 自分のページの時に表示 -->
         <% if logged_in? && ( @user.id == current_user.id ) %>

@@ -99,7 +99,7 @@
         <% if @comments.exists?(event_id: @event.id) %>
           <% @comments.each do |comment| %>
             <div class="comment-user">
-              <%= comment.user.name + ' >' %>
+              <%= "#{comment.user.name} >" %>
             </div>
             <div class="comment-content">
               <%= comment.message %>
@@ -114,6 +114,15 @@
             </div>
             <%= f.submit '送信', class: 'btn btn-black btn-block' %>
           <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <!-- 編集ボタン -->
+      <div class="row">
+        <% if logged_in? && @event.user == current_user %>
+          <%= link_to "編集", edit_event_path(@event.id), class: 'btn btn-block btn-black' %>
+          <%= link_to "投稿削除", event_path, method: :delete, class: "btn btn-black btn-block destroy-user" %>
         <% end %>
       </div>
     </div>

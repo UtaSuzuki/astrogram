@@ -22,7 +22,7 @@
                 条件名
                 <span class="index-text">
                   <% if logged_in? %>
-                    <% if condition.id == current_user.id %>
+                    <% if condition.user_id == current_user.id %>
                       <%= link_to condition.title, edit_condition_path(condition.id) %>
                     <% else %>
                       <%= "#{condition.title}" %>

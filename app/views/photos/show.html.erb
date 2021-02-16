@@ -189,7 +189,7 @@
         <% if @comments.exists?(photo_id: @photo.id) %>
           <% @comments.each do |comment| %>
             <div class="comment-user">
-              <%= comment.user.name + ' >' %>
+              <%= "#{comment.user.name} >" %>
             </div>
             <div class="comment-content">
               <%= comment.message %>
@@ -204,6 +204,15 @@
             </div>
             <%= f.submit '送信', class: 'btn btn-black btn-block' %>
           <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <!-- 編集ボタン -->
+      <div class="row">
+        <% if logged_in? && @photo.condition.user == current_user %>
+          <%= link_to "編集", edit_photo_path(@photo.id), class: 'btn btn-block btn-black' %>
+          <%= link_to "投稿削除", photo_path, method: :delete, class: "btn btn-black btn-block destroy-user" %>
         <% end %>
       </div>
     </div>

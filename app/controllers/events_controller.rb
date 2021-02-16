@@ -20,9 +20,35 @@ class EventsController < ApplicationController
   
   def show
     @event = Event.find(params[:id])
-    @author = User.find(@event.user_id).name
     @comments = @event.event_comments
     @comment = EventComment.new
+  end
+  
+  def edit
+    @event = Event.find(params[:id])
+  end
+  
+  def update
+    event = Event.find(params[:id])
+    
+    if event.update(event_params)
+      redirect_to event_path(event.id), success: "投稿内容を更新しました"
+    else
+      flash.now[:danger] = "投稿内容の更新に失敗しました"
+      redirect_to event_path(event.id), danger: "投稿内容の更新に失敗しました"
+      # render :show, { id: current_user.id }
+    end
+    
+  end
+  
+  def destroy
+    @event = Event.find(params[:id])
+    if @event.destroy
+      redirect_to events_path, success: "投稿写真を削除しました"
+    else
+      flash.now[:danger] = "投稿写真の削除に失敗しました"
+      render :show
+    end
   end
   
   def user_index

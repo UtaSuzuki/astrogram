@@ -8,15 +8,27 @@
     <div class="col-md-offset-2 col-md-8">
       <table class="index-table">
         <tr class="row">
-          <td class="col-md-3">ID</td>
-          <td class="col-md-5">名前</td>
-          <td class="col-md-2">フォロー解除</td>
+          <td class="col-md-1">ID</td>
+          <td class="col-md-3">名前</td>
+          <% if logged_in? %>
+            <% if current_user == @user %>
+              <td class="col-md-4">フォロー解除</td>
+            <% end %>
+          <% end %>
         </tr>
         <% @following.each do |user| %>
           <tr class="row">
-            <td class="col-md-3"><%= user.id %></td>
-            <td class="col-md-5"><%= user.name %></td>
-            <td class="col-md-2"><%= link_to '解除', unfollow_path(user.id), method: :post %></td>
+            <td class="col-md-1"><%= user.id %></td>
+            <td class="col-md-3">
+              <%= link_to user_path(id: user.id) do %>
+                <%= user.name %>
+              <% end %>
+            </td>
+            <% if logged_in? %>
+              <% if current_user == @user %>
+                <td class="col-md-4"><%= link_to '解除', unfollow_path(user.id), method: :post %></td>
+              <% end %>
+            <% end %>
           </tr>
         <% end %>
       </table>  

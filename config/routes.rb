@@ -28,13 +28,16 @@ Rails.application.routes.draw do
   post   'unfollow/:id' => 'relationships#unfollow', as: 'unfollow'  # フォローを外す
   
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
+  
   resources :events do
     member do
       get 'user_index'
     end
     resources :event_comments, only: [:create, :destroy]
   end
+  
   resources :conditions, only: [:new, :create, :index, :show, :edit, :update, :destroy]
+  
   resources :photos do
     resources :orders do
       member do
@@ -47,10 +50,13 @@ Rails.application.routes.draw do
     end
     resources :photo_comments, only: [:create, :destroy]
   end
+  
   resources :cards, only: [:new, :create, :show, :destroy]
+  
   resources :orders, only: [:new, :index] do
     member do
       get 'sales_index'
     end
   end
+  
 end

@@ -29,6 +29,34 @@ class PhotosController < ApplicationController
     @comment = PhotoComment.new
   end
   
+  def edit
+    @photo = Photo.includes(condition: :user).find(params[:id])
+    @condition = Condition.where(user_id: current_user.id).pluck('title', 'id')
+  end
+  
+  def update
+    photo = Photo.includes(condition: :user).find(params[:id])
+    
+    if photo.update(photo_params)
+      redirect_to photo_path(photo.id), success: "投稿内容を更新しました"
+    else
+      flash.now[:danger] = "投稿内容の更新に失敗しました"
+      redirect_to photo_path(photo.id), danger: "投稿内容の更新に失敗しました"
+      # render :show, { id: current_user.id }
+    end
+    
+  end
+  
+  def destroy
+    @photo = Photo.includes(condition: :user).find(params[:id])
+    if @photo.destroy
+      redirect_to root_path, success: "投稿写真を削除しました"
+    else
+      flash.now[:danger] = "投稿写真の削除に失敗しました"
+      render :show
+    end
+  end
+  
   def user_index
     @user   = User.find(params[:id])
     @photos = Photo.includes(condition: :user).where(users: {id: params[:id]})
