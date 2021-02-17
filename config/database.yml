@@ -47,8 +47,17 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+
+# MySQL
+#production:
+#  <<: *default
+#  database: astrogram_production
+#  username: astrogram
+#  password: <%= ENV['ASTROGRAM_DATABASE_PASSWORD'] %>
+
+# PostgreSQL
 production:
   <<: *default
-  database: astrogram_production
-  username: astrogram
-  password: <%= ENV['ASTROGRAM_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
