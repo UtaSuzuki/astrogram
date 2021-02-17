@@ -64,7 +64,7 @@
             </li>
           <% else %>
             <!-- 写真一覧 -->
-            <% if request.fullpath != "/photos" || request.fullpath != "/" %>
+            <% if request.fullpath != "/photos" %>
               <li>
                 <%= link_to photos_path do %>
                   <%= image_tag "icons/photo.png" %>
