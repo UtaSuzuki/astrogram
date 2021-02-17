@@ -91,3 +91,5 @@ gem 'nokogiri'
 gem 'activerecord-import'
 
 gem 'payjp'
+
+gem 'fog-aws'
