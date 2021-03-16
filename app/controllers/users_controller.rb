@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find(current_user.id)
+    @card = Card.find_by(user_id: @user.id)
   end
   
   def update
