@@ -62,8 +62,12 @@
         </div>
         <!-- 登録ボタン -->
         <%= f.submit "更新", class: "btn btn-black btn-block" %>
-        <!-- クレジットカード変更 -->
-        <%= link_to "クレジットカードの変更", card_path, class: "btn btn-black btn-block" %>
+        <!-- クレジットカードの登録/変更 -->
+        <% if @card.nil? %>
+          <%= link_to "クレジットカードの新規登録", new_card_path, class: "btn btn-black btn-block" %>
+        <% else %>
+          <%= link_to "クレジットカードの変更", card_path, class: "btn btn-black btn-block" %>
+        <% end %>
       <% end %>
     </div>
   </div>
